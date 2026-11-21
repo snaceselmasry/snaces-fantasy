@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://snaceselmasry.github.io/snaces-fantasy/sitemap.xml
