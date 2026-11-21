@@ -51,7 +51,36 @@
 <button class="btn secondary" onclick="setPosition('4')">
 ⚽ هجوم
 </button>
+<section class="section">
+<div class="wrap">
 
+<div class="head">
+<div>
+<h2>⚔️ مقارنة اللاعبين</h2>
+<p>اختر لاعبين للمقارنة.</p>
+</div>
+</div>
+
+<div class="panel">
+
+<select id="player1" class="control">
+<option>اختر اللاعب الأول</option>
+</select>
+
+<select id="player2" class="control">
+<option>اختر اللاعب الثاني</option>
+</select>
+
+<button class="btn primary" id="compareBtn">
+قارن
+</button>
+
+<div id="compareResult" style="margin-top:20px"></div>
+
+</div>
+
+</div>
+</section>
 </div><div class="controls"><input class="control search" id="search" placeholder="ابحث باسم اللاعب أو النادي..." aria-label="بحث"><select class="control" id="position"><option value="all">كل المراكز</option><option value="1">حارس مرمى</option><option value="2">مدافع</option><option value="3">وسط</option><option value="4">مهاجم</option></select><select class="control" id="sort"><option value="total_points">الأكثر نقاطًا</option><option value="form">أفضل فورم</option><option value="now_cost">السعر</option><option value="selected_by_percent">نسبة الملكية</option><option value="minutes">الدقائق</option><option value="expected_goals">الأهداف المتوقعة xG</option><option value="expected_assists">الصناعة المتوقعة xA</option></select></div></div><div class="tableWrap"><table><thead><tr><th>اللاعب</th><th>النادي</th><th>المركز</th><th>السعر</th><th>النقاط</th><th>الفورم</th><th>الملكية</th><th>الدقائق</th><th>xG</th><th>xA</th><th>الحالة</th></tr></thead><tbody id="playerRows"><tr><td colspan="11" class="empty">جاري تحميل بيانات اللاعبين...</td></tr></tbody></table></div><div class="dataFoot"><span id="updated">لم يتم تحميل البيانات بعد</span><span>اضغط على أي لاعب لعرض تفاصيله</span></div></div><div class="playerPanel detail" id="playerDetail"><div class="detailHead"><div><span class="tag">PLAYER PROFILE</span><h3 id="detailName" style="margin:5px 0">—</h3><span class="muted" id="detailClub"></span></div><button class="close" id="closeDetail">إغلاق ✕</button></div><div class="detailGrid" id="detailStats"></div><h4>آخر المشاركات</h4><div class="tableWrap"><table style="min-width:500px"><thead><tr><th>الجولة</th><th>الخصم</th><th>الدقائق</th><th>الأهداف</th><th>الصناعة</th><th>النقاط</th></tr></thead><tbody id="historyRows"></tbody></table></div><p class="muted" id="detailNote" style="font-size:11px"></p></div><div class="disclaimer" style="margin-top:12px">تنبيه: بيانات اللاعبين تُحمّل من واجهة FPL العامة عبر وسيط CORS. الواجهة غير رسمية وقد تتغير أو تتوقف. لا تعتبر الإحصائيات ضمانًا لأداء اللاعب مستقبلًا.</div></div></section>
 <section class="section">
 <div class="wrap">
