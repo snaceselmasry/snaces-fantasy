@@ -1,0 +1,21 @@
+name: Update FPL data
+on:
+  schedule:
+    - cron: "0 */6 * * *"
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: |
+          mkdir -p data
+          curl -fsSL -A "Mozilla/5.0" https://fantasy.premierleague.com/api/bootstrap-static/ -o data/bootstrap-static.json
+          curl -fsSL -A "Mozilla/5.0" https://fantasy.premierleague.com/api/fixtures/ -o data/fixtures.json
+      - run: |
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
+          git add data
+          git diff --cached --quiet || (git commit -m "Update FPL data" && git push)
