@@ -13,7 +13,7 @@ async function getJSON(url, headers = {}, tries = 4) {
   let err;
   for (let i = 1; i <= tries; i++) {
     try {
-      const r = await fetch(url, { headers: { "User-Agent": "snaces-football-bot", ...headers } });
+      const r = await fetch(url, { headers: { "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36", Accept: "application/json", ...headers } });
       if (r.status === 429) { await sleep(Math.min(GAP * 5, 65000)); throw new Error("HTTP 429"); }
       if (!r.ok) throw new Error(`HTTP ${r.status} ${url}`);
       return await r.json();
