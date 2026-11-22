@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#071b16">
+<title>الدوريات الكبرى | ترتيب ونتائج وهدافين - SNACES FOOTBALL</title>
+<meta name="description" content="ترتيب ونتائج ومواعيد الدوريات الإنجليزي والإسباني والإيطالي والألماني والفرنسي، مع الهدافين وتحليل وتوقع المباريات.">
+<link rel="canonical" href="https://snaceselmasry.github.io/snaces-fantasy/leagues.html">
+<meta property="og:type" content="website"><meta property="og:title" content="SNACES FOOTBALL | مباريات وتحليل"><meta property="og:description" content="نتائج • ترتيب • هدافين • تحليل مباريات"><meta property="og:image" content="https://snaceselmasry.github.io/snaces-fantasy/Designer.png"><meta name="twitter:card" content="summary_large_image">
+<link rel="icon" type="image/png" href="logo-192.png"><link rel="apple-touch-icon" href="logo-192.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<meta name="google-site-verification" content="0o0Unafgksa2j9W3BSqj4DAp9wnsKM65Yjt0JKPjc30" />
+</head>
+<body>
+<div class="topbar"><div class="wrap nav"><a class="logo" href="index.html"><img src="logo-192.png" alt="" width="38" height="38"><b>SNACES <span>FOOTBALL</span></b></a><div class="links"><a href="index.html">الرئيسية</a><a href="#standings">الترتيب</a><a href="#matches">المباريات</a><a href="#scorers">الهدافين</a><a href="#analysis">التحليل</a></div></div></div>
+<main>
+<div class="wrap hero"><div class="heroGrid"><div><div class="eyebrow">MATCHES • TABLES • ANALYSIS</div><h1>تابع الكورة<br><span>بالأرقام.</span></h1><p>نتائج ومواعيد وترتيب الدوريات الخمسة الكبرى، مع الهدافين وتحليل وتوقع أي مباراة اعتمادًا على نتائج الموسم.</p><div class="actions"><a class="btn primary" href="#matches">المباريات</a><a class="btn secondary" href="#analysis">حلل مباراة</a></div></div><div class="heroVisual"><img class="heroLogo" src="logo-512.png" alt="SNACES" width="340" height="340" fetchpriority="high"></div></div></div>
+<section class="section"><div class="wrap"><div class="head"><div><h2>اختر البطولة</h2><p id="updated">جاري التحميل...</p></div></div><div class="cmpBar" id="tabs"></div><div class="kpis" style="margin-top:12px"><div class="kpi"><small>الجولة الحالية</small><strong class="green" id="kRound">—</strong></div><div class="kpi"><small>عدد الفرق</small><strong id="kTeams">—</strong></div><div class="kpi"><small>مباريات منتهية</small><strong id="kDone">—</strong></div><div class="kpi"><small>أهداف / مباراة</small><strong id="kGoals">—</strong></div></div><p class="muted" id="note" style="font-size:12px"></p></div></section>
+<section class="section" id="standings"><div class="wrap"><div class="head"><div><h2>🏆 الترتيب</h2></div></div><div class="dataPanel"><div class="tableWrap"><table style="min-width:640px"><thead><tr><th>#</th><th>الفريق</th><th>لعب</th><th>فوز</th><th>تعادل</th><th>خسارة</th><th>له</th><th>عليه</th><th>فارق</th><th>نقاط</th><th>آخر 5</th></tr></thead><tbody id="standRows"></tbody></table></div></div></div></section>
+<section class="section" id="matches"><div class="wrap"><div class="head"><div><h2>📅 المباريات</h2></div><div class="cmpBar"><button class="btn primary" id="vNext">القادمة</button><button class="btn secondary" id="vRes">النتائج</button></div></div><div class="fxGrid" id="fxList"></div></div></section>
+<section class="section" id="scorers"><div class="wrap"><div class="head"><div><h2>⚽ الهدافين وصناع اللعب</h2></div></div><div class="two"><div class="dataPanel"><div class="tableWrap"><table style="min-width:300px"><thead><tr><th>#</th><th>اللاعب</th><th>الفريق</th><th>أهداف</th></tr></thead><tbody id="goalRows"></tbody></table></div></div><div class="dataPanel"><div class="tableWrap"><table style="min-width:300px"><thead><tr><th>#</th><th>اللاعب</th><th>الفريق</th><th>صناعة</th></tr></thead><tbody id="assistRows"></tbody></table></div></div></div></div></section>
+<section class="section" id="analysis"><div class="wrap"><div class="head"><div><h2>🧠 تحليل مباراة</h2><p>اختر فريقين وشوف التوقع الإحصائي.</p></div></div><div class="panel"><div class="vs"><select class="control" id="t1"></select><b>ضد</b><select class="control" id="t2"></select><button class="btn primary" id="go">حلل</button></div><div id="anaOut" style="margin-top:12px"></div></div><div class="disclaimer" style="margin-top:12px">التوقعات تقدير إحصائي بسيط (نموذج بواسون) من نتائج الموسم الحالي، مش بتاخد الإصابات ولا التشكيلة في الحسبان، وما هياش ضمان لأي نتيجة. الأرقام ممكن تتأخر عن الواقع بضع ساعات.</div></div></section>
+</main>
+<footer><div class="wrap">© 2026 SNACES FOOTBALL. موقع مستقل وغير تابع لأي دوري أو نادٍ. البيانات من football-data.org.</div></footer>
+<script>
+const LG=[["PL","الإنجليزي"],["PD","الإسباني"],["SA","الإيطالي"],["BL1","الألماني"],["FL1","الفرنسي"]];
+const $=id=>document.getElementById(id),esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c])),num=v=>Number.isFinite(+v)?+v:0;
+let cur="PL",D=null,view="next";
+const crest=t=>t&&t.crest?`<img class="crest" src="${esc(t.crest)}" alt="" loading="lazy" referrerpolicy="no-referrer">`:"";
+const fin=()=>(D&&D.matches||[]).filter(m=>m.status==="FINISHED"&&m.hg!=null&&m.ag!=null);
+const dt=d=>d?new Date(d).toLocaleString("ar-EG",{weekday:"short",day:"numeric",month:"short",hour:"2-digit",minute:"2-digit"}):"يحدد لاحقًا";
+const form=id=>fin().filter(m=>m.home.id===id||m.away.id===id).sort((a,b)=>new Date(b.date)-new Date(a.date)).slice(0,5).map(m=>{const h=m.home.id===id,f=h?m.hg:m.ag,a=h?m.ag:m.hg;return f>a?"W":f<a?"L":"D"});
+const chips=a=>a.map(c=>`<span class="fdr fdr${c==="W"?1:c==="L"?5:3}" style="min-width:22px">${c==="W"?"ف":c==="L"?"خ":"ت"}</span>`).join("")||"—";
+function tabs(){$("tabs").innerHTML=LG.map(([c,n])=>`<button class="btn ${c===cur?"primary":"secondary"}" data-c="${c}">${n}</button>`).join("");$("tabs").querySelectorAll("button").forEach(b=>b.onclick=()=>{cur=b.dataset.c;load()})}
+async function load(){tabs();D=null;try{const r=await fetch("data/"+cur+".json");if(!r.ok)throw 0;D=await r.json()}catch(e){}render()}
+const empty=(n,t)=>`<tr><td colspan="${n}" class="empty">${t}</td></tr>`;
+function render(){
+ const ok=D&&D.standings&&D.standings.length,f=fin();
+
+ if(!ok){$("standRows").innerHTML=empty(11,"بيانات الدوري ده مش متاحة حاليًا.");$("fxList").innerHTML='<div class="muted">لا توجد بيانات.</div>';$("goalRows").innerHTML=empty(4,"—");$("assistRows").innerHTML=empty(4,"—");["kRound","kTeams","kDone","kGoals"].forEach(i=>$(i).textContent="—");fillTeams();$("anaOut").innerHTML="";return}
+ $("kRound").textContent=Math.max(0,...f.map(m=>m.md||0))||"—";$("kTeams").textContent=D.standings.length;$("kDone").textContent=f.length;$("kGoals").textContent=f.length?(f.reduce((s,m)=>s+m.hg+m.ag,0)/f.length).toFixed(2):"—";
+ $("standRows").innerHTML=D.standings.map(r=>`<tr><td>${r.pos}</td><td>${crest(r.team)}<b>${esc(r.team.name)}</b></td><td>${r.p}</td><td>${r.w}</td><td>${r.d}</td><td>${r.l}</td><td>${r.gf}</td><td>${r.ga}</td><td>${r.gd>0?"+":""}${r.gd}</td><td><b>${r.pts}</b></td><td>${chips(form(r.team.id))}</td></tr>`).join("");
+ fixtures();
+ const sc=D.scorers||[],g=sc.slice().sort((a,b)=>num(b.goals)-num(a.goals)).slice(0,10),as=sc.filter(s=>num(s.assists)>0).sort((a,b)=>num(b.assists)-num(a.assists)).slice(0,10);
+ $("goalRows").innerHTML=g.length?g.map((s,i)=>`<tr><td>${i+1}</td><td><b>${esc(s.name)}</b></td><td>${esc(s.team)}</td><td><b>${s.goals}</b></td></tr>`).join(""):empty(4,"البيانات دي مش متاحة لهذا الدوري.");
+ $("assistRows").innerHTML=as.length?as.map((s,i)=>`<tr><td>${i+1}</td><td><b>${esc(s.name)}</b></td><td>${esc(s.team)}</td><td><b>${s.assists}</b></td></tr>`).join(""):empty(4,"البيانات دي مش متاحة لهذا الدوري.");
+ fillTeams();$("anaOut").innerHTML=""}
+function fixtures(){const ms=D.matches||[];let l;
+ if(view==="next")l=ms.filter(m=>m.status!=="FINISHED"&&!["CANCELLED","POSTPONED","SUSPENDED"].includes(m.status)).sort((a,b)=>new Date(a.date)-new Date(b.date)).slice(0,12);
+ else l=fin().sort((a,b)=>new Date(b.date)-new Date(a.date)).slice(0,12);
+ $("fxList").innerHTML=l.length?l.map(m=>`<a class="fx" href="match.html?l=${cur}&id=${m.id}"><span>${crest(m.home)}${esc(m.home.name)} ${view==="res"?`<b>${m.hg} - ${m.ag}</b>`:"ضد"} ${crest(m.away)}${esc(m.away.name)}</span><span class="muted">${dt(m.date)} ‹ تحليل</span></a>`).join(""):'<div class="muted">لا توجد مباريات.</div>'}
+$("vNext").onclick=()=>{view="next";$("vNext").className="btn primary";$("vRes").className="btn secondary";if(D)fixtures()};
+$("vRes").onclick=()=>{view="res";$("vRes").className="btn primary";$("vNext").className="btn secondary";if(D)fixtures()};
+function fillTeams(){const ts=D&&D.standings?D.standings.map(r=>r.team).sort((a,b)=>a.name.localeCompare(b.name)):[];const o=ts.map(t=>`<option value="${t.id}">${esc(t.name)}</option>`).join("");$("t1").innerHTML='<option value="">الفريق الأول</option>'+o;$("t2").innerHTML='<option value="">الفريق الثاني</option>'+o}
+const pois=(l,k)=>{let p=Math.exp(-l);for(let i=1;i<=k;i++)p*=l/i;return p};
+function predict(h,a){const f=fin();if(f.length<10)return null;
+ const gH=f.reduce((s,m)=>s+m.hg,0)/f.length,gA=f.reduce((s,m)=>s+m.ag,0)/f.length,lg=(gH+gA)/2,K=3;
+ const st=id=>{const g=f.filter(m=>m.home.id===id||m.away.id===id);let gf=0,ga=0;g.forEach(m=>{const o=m.home.id===id;gf+=o?m.hg:m.ag;ga+=o?m.ag:m.hg});return{att:((gf+K*lg)/(g.length+K))/lg,def:((ga+K*lg)/(g.length+K))/lg}};
+ const x=st(h),y=st(a),xh=gH*x.att*y.def,xa=gA*y.att*x.def;let w=0,d=0,l=0,b=[0,0,0];
+ for(let i=0;i<=8;i++)for(let j=0;j<=8;j++){const p=pois(xh,i)*pois(xa,j);if(i>j)w+=p;else if(i===j)d+=p;else l+=p;if(p>b[2])b=[i,j,p]}
+ const t=w+d+l,W=Math.round(w/t*100),Dr=Math.round(d/t*100);return{w:W,d:Dr,l:100-W-Dr,score:b,xh,xa}}
+$("go").onclick=()=>{const a=+$("t1").value,b=+$("t2").value,el=$("anaOut"),S=D&&D.standings||[],A=S.find(r=>r.team.id===a),B=S.find(r=>r.team.id===b);
+ if(!A||!B||a===b){el.innerHTML='<p class="muted">اختر فريقين مختلفين.</p>';return}
+ const p=predict(a,b);if(!p){el.innerHTML='<p class="muted">عدد المباريات لسه قليل للتحليل.</p>';return}
+ const row=(l,x,y)=>`<tr><td>${x}</td><td class="muted">${l}</td><td>${y}</td></tr>`;
+ el.innerHTML=`<h3 style="margin:0">${crest(A.team)}${esc(A.team.name)} ضد ${crest(B.team)}${esc(B.team.name)}</h3><small class="muted">(${esc(A.team.name)} صاحب الأرض)</small><div class="prob"><span class="pw" style="width:${p.w}%">${p.w}%</span><span class="pd" style="width:${p.d}%">${p.d}%</span><span class="pl" style="width:${p.l}%">${p.l}%</span></div><p>فوز ${esc(A.team.name)} • تعادل • فوز ${esc(B.team.name)}<br>أرجح نتيجة: <b>${p.score[0]} - ${p.score[1]}</b> • الأهداف المتوقعة: ${p.xh.toFixed(1)} - ${p.xa.toFixed(1)}</p><div class="tableWrap"><table class="cmpTbl" style="min-width:300px"><tbody>${row("الترتيب",A.pos,B.pos)}${row("النقاط",A.pts,B.pts)}${row("فارق الأهداف",A.gd,B.gd)}${row("آخر 5",chips(form(a)),chips(form(b)))}</tbody></table></div>`};
+(async()=>{try{const m=await (await fetch("data/meta.json")).json();$("updated").textContent="آخر تحديث للبيانات: "+new Date(m.updated).toLocaleString("ar-EG")}catch(e){$("updated").textContent="البيانات بتتحدّث تلقائيًا كل بضع ساعات."}})();
+load();
+</script>
+</body>
+</html>

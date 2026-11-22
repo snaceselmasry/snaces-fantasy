@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#071b16">
+<title>تحليل مباراة | SNACES FOOTBALL</title>
+<meta name="description" content="تحليل مفصل للمباراة: توقع النتيجة، الفورم، الأداء داخل وخارج الأرض، واللقاءات المباشرة.">
+<meta name="robots" content="noindex"><link rel="canonical" href="https://snaceselmasry.github.io/snaces-fantasy/match.html">
+<meta property="og:type" content="website"><meta property="og:title" content="SNACES FOOTBALL | مباريات وتحليل"><meta property="og:description" content="نتائج • ترتيب • هدافين • تحليل مباريات"><meta property="og:image" content="https://snaceselmasry.github.io/snaces-fantasy/Designer.png"><meta name="twitter:card" content="summary_large_image">
+<link rel="icon" type="image/png" href="logo-192.png"><link rel="apple-touch-icon" href="logo-192.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<meta name="google-site-verification" content="0o0Unafgksa2j9W3BSqj4DAp9wnsKM65Yjt0JKPjc30" />
+</head>
+<body>
+<div class="topbar"><div class="wrap nav"><a class="logo" href="index.html"><img src="logo-192.png" alt="" width="38" height="38"><b>SNACES <span>FOOTBALL</span></b></a><div class="links"><a href="index.html">الرئيسية</a><a href="leagues.html">الدوريات</a></div></div></div>
+<main><section class="section"><div class="wrap" id="app"><p class="muted">جاري التحميل...</p></div></section></main>
+<footer><div class="wrap">© 2026 SNACES FOOTBALL. موقع مستقل وغير تابع لأي دوري أو نادٍ. البيانات من football-data.org.</div></footer>
+<script>
+const $=id=>document.getElementById(id),esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const q=new URLSearchParams(location.search),L=(q.get("l")||"").toUpperCase(),ID=Number(q.get("id"));
+const app=$("app"),crest=t=>t&&t.crest?`<img class="crest" src="${esc(t.crest)}" alt="" referrerpolicy="no-referrer">`:"";
+const fail=()=>{app.innerHTML='<div class="dataPanel" style="padding:20px"><p>المباراة مش موجودة أو البيانات مش متاحة.</p><a class="btn primary" href="leagues.html">رجوع للدوريات</a></div>'};
+const dt=d=>d?new Date(d).toLocaleString("ar-EG",{weekday:"long",day:"numeric",month:"long",hour:"2-digit",minute:"2-digit"}):"يحدد لاحقًا";
+const pois=(l,k)=>{let p=Math.exp(-l);for(let i=1;i<=k;i++)p*=l/i;return p};
+const pc=x=>Math.round(x*100);
+(async()=>{
+ if(!/^[A-Z0-9]{2,4}$/.test(L)||!ID)return fail();
+ let D;try{const r=await fetch("data/"+L+".json");if(!r.ok)throw 0;D=await r.json()}catch(e){return fail()}
+ const m=D.matches.find(x=>x.id===ID);if(!m)return fail();
+ const fin=D.matches.filter(x=>x.status==="FINISHED"&&x.hg!=null&&x.ag!=null);
+ const H=m.home,A=m.away;document.title=`${H.name} ضد ${A.name} | تحليل المباراة`;
+ const games=id=>fin.filter(x=>x.home.id===id||x.away.id===id).sort((a,b)=>new Date(b.date)-new Date(a.date));
+ const res=(x,id)=>{const h=x.home.id===id,f=h?x.hg:x.ag,a=h?x.ag:x.hg;return f>a?"W":f<a?"L":"D"};
+ const chips=id=>games(id).slice(0,5).map(x=>{const r=res(x,id);return `<span class="fdr fdr${r==="W"?1:r==="L"?5:3}" style="min-width:22px">${r==="W"?"ف":r==="L"?"خ":"ت"}</span>`}).join("")||"—";
+ const rec=(id,side)=>{const g=fin.filter(x=>x[side].id===id);let w=0,d=0,l=0,gf=0,ga=0;g.forEach(x=>{const f=side==="home"?x.hg:x.ag,a=side==="home"?x.ag:x.hg;gf+=f;ga+=a;f>a?w++:f<a?l++:d++});return{n:g.length,w,d,l,gf,ga}};
+ const recTxt=r=>r.n?`${r.w}-${r.d}-${r.l} (${r.gf}:${r.ga})`:"—";
+ const row=D.standings.find(r=>r.team.id===H.id)||{},rowA=D.standings.find(r=>r.team.id===A.id)||{};
+ const avg=(r,k)=>r.p?(r[k]/r.p).toFixed(2):"—";
+ // التوقع (بواسون)
+ let pred=null;
+ if(fin.length>=10){const gH=fin.reduce((s,x)=>s+x.hg,0)/fin.length,gA=fin.reduce((s,x)=>s+x.ag,0)/fin.length,lg=(gH+gA)/2,K=3;
+  const st=id=>{const g=games(id);let gf=0,ga=0;g.forEach(x=>{const o=x.home.id===id;gf+=o?x.hg:x.ag;ga+=o?x.ag:x.hg});return{att:((gf+K*lg)/(g.length+K))/lg,def:((ga+K*lg)/(g.length+K))/lg}};
+  const x=st(H.id),y=st(A.id),xh=gH*x.att*y.def,xa=gA*y.att*x.def;let w=0,d=0,l=0,o25=0,bt=0;const sc=[];
+  for(let i=0;i<=8;i++)for(let j=0;j<=8;j++){const p=pois(xh,i)*pois(xa,j);i>j?w+=p:i===j?d+=p:l+=p;if(i+j>=3)o25+=p;if(i&&j)bt+=p;sc.push([i,j,p])}
+  const t=w+d+l;sc.sort((a,b)=>b[2]-a[2]);const W=pc(w/t),Dr=pc(d/t);
+  pred={W,D:Dr,L:100-W-Dr,o25:pc(o25/t),bt:pc(bt/t),xh,xa,top:sc.slice(0,5)}}
+ const done=m.status==="FINISHED"&&m.hg!=null;
+ const mid=done?`<span class="sc">${m.hg} - ${m.ag}</span>`:`<span class="sc">ضد</span>`;
+ const h2h=fin.filter(x=>(x.home.id===H.id&&x.away.id===A.id)||(x.home.id===A.id&&x.away.id===H.id)).filter(x=>x.id!==m.id);
+ const tr=(l,a,b)=>`<tr><td>${a}</td><td class="muted">${l}</td><td>${b}</td></tr>`;
+ app.innerHTML=`<div class="mh"><span class="tm">${H.crest?`<img src="${esc(H.crest)}" alt="" referrerpolicy="no-referrer">`:""}${esc(H.name)}</span>${mid}<span class="tm">${A.crest?`<img src="${esc(A.crest)}" alt="" referrerpolicy="no-referrer">`:""}${esc(A.name)}</span><small>${esc(D.name)}${m.md?" • الجولة "+m.md:""} • ${dt(m.date)}</small></div>
+ <div class="head"><div><h2>🧠 التوقع</h2></div></div>
+ ${pred?`<div class="panel"><div class="prob"><span class="pw" style="width:${pred.W}%">${pred.W}%</span><span class="pd" style="width:${pred.D}%">${pred.D}%</span><span class="pl" style="width:${pred.L}%">${pred.L}%</span></div><p>فوز ${esc(H.name)} • تعادل • فوز ${esc(A.name)}</p>
+ <div class="kpis"><div class="kpi"><small>أرجح نتيجة</small><strong class="green">${pred.top[0][0]} - ${pred.top[0][1]}</strong></div><div class="kpi"><small>الأهداف المتوقعة</small><strong>${pred.xh.toFixed(1)} - ${pred.xa.toFixed(1)}</strong></div><div class="kpi"><small>أكثر من 2.5 هدف</small><strong>${pred.o25}%</strong></div><div class="kpi"><small>الفريقان يسجلان</small><strong>${pred.bt}%</strong></div></div>
+ <p class="muted" style="margin-bottom:6px">أكثر النتائج احتمالًا:</p><div class="sl">${pred.top.map(t=>`<span>${t[0]} - ${t[1]} (${(t[2]*100).toFixed(1)}%)</span>`).join("")}</div></div>`:'<div class="panel"><p class="muted">عدد المباريات لسه قليل للتوقع.</p></div>'}
+ <div class="head" style="margin-top:24px"><div><h2>📊 مقارنة الفريقين</h2></div></div>
+ <div class="dataPanel"><div class="tableWrap"><table class="cmpTbl" style="min-width:320px"><thead><tr><th>${esc(H.name)}</th><th></th><th>${esc(A.name)}</th></tr></thead><tbody>
+ ${tr("الترتيب",row.pos??"—",rowA.pos??"—")}${tr("النقاط",row.pts??"—",rowA.pts??"—")}${tr("لعب",row.p??"—",rowA.p??"—")}${tr("أهداف له / مباراة",avg(row,"gf"),avg(rowA,"gf"))}${tr("أهداف عليه / مباراة",avg(row,"ga"),avg(rowA,"ga"))}${tr("فارق الأهداف",row.gd??"—",rowA.gd??"—")}
+ ${tr("سجله على أرضه / خارجها",recTxt(rec(H.id,"home")),recTxt(rec(A.id,"away")))}${tr("آخر 5 مباريات",chips(H.id),chips(A.id))}</tbody></table></div></div>
+ <p class="muted" style="font-size:12px">سجل الأرض والخارج: فوز-تعادل-خسارة (أهداف له:عليه). الفريق الأول على أرضه، والثاني خارج أرضه.</p>
+ <div class="head" style="margin-top:24px"><div><h2>⚔️ اللقاءات المباشرة هذا الموسم</h2></div></div>
+ <div class="fxGrid">${h2h.length?h2h.map(x=>`<div class="fx"><span>${esc(x.home.name)} <b>${x.hg} - ${x.ag}</b> ${esc(x.away.name)}</span><span class="muted">${dt(x.date)}</span></div>`).join(""):'<div class="muted">لا توجد لقاءات سابقة هذا الموسم.</div>'}</div>
+ <div class="disclaimer" style="margin-top:18px">التوقع تقدير إحصائي بسيط (نموذج بواسون) من نتائج الموسم الحالي، ولا يأخذ الإصابات ولا التشكيلة ولا الإيقافات في الحسبان، وليس ضمانًا لأي نتيجة.</div>
+ <p style="margin-top:14px"><a class="btn secondary" href="leagues.html#matches">‹ رجوع للمباريات</a></p>`;
+})();
+</script>
+</body>
+</html>
