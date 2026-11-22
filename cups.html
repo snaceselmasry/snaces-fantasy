@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#071b16">
+<title>البطولات القارية والعالمية | SNACES FOOTBALL</title>
+<meta name="description" content="دوري أبطال أوروبا وكأس العالم: الترتيب والمجموعات والمباريات والهدافين.">
+<link rel="canonical" href="https://snaceselmasry.github.io/snaces-fantasy/cups.html">
+<meta property="og:type" content="website"><meta property="og:title" content="SNACES FOOTBALL | مباريات وتحليل"><meta property="og:description" content="نتائج • ترتيب • هدافين • تحليل مباريات"><meta property="og:image" content="https://snaceselmasry.github.io/snaces-fantasy/Designer.png"><meta name="twitter:card" content="summary_large_image">
+<link rel="icon" type="image/png" href="logo-192.png"><link rel="apple-touch-icon" href="logo-192.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<meta name="google-site-verification" content="0o0Unafgksa2j9W3BSqj4DAp9wnsKM65Yjt0JKPjc30" />
+</head>
+<body>
+<div class="topbar"><div class="wrap nav"><a class="logo" href="index.html"><img src="logo-192.png" alt="" width="38" height="38"><b>SNACES <span>FOOTBALL</span></b></a><div class="links"><a href="index.html">الرئيسية</a><a href="leagues.html">الدوريات</a><a href="cups.html">البطولات</a></div></div></div>
+<main>
+<section class="section"><div class="wrap"><div class="head"><div><h2>🌍 البطولات القارية والعالمية</h2><p id="updated">جاري التحميل...</p></div></div><div class="cmpBar" id="tabs"></div><p class="muted" id="note" style="font-size:12px"></p></div></section>
+<section class="section" id="standings"><div class="wrap"><div class="head"><div><h2>🏆 الترتيب</h2></div></div><div id="standWrap"></div></div></section>
+<section class="section" id="matches"><div class="wrap"><div class="head"><div><h2>📅 المباريات</h2></div><div class="cmpBar"><button class="btn primary" id="vNext">القادمة</button><button class="btn secondary" id="vRes">النتائج</button></div></div><div class="fxGrid" id="fxList"></div></div></section>
+<section class="section" id="scorers"><div class="wrap"><div class="head"><div><h2>⚽ الهدافون</h2></div></div><div class="dataPanel"><div class="tableWrap"><table style="min-width:300px"><thead><tr><th>#</th><th>اللاعب</th><th>الفريق</th><th>أهداف</th></tr></thead><tbody id="goalRows"></tbody></table></div></div><div class="disclaimer" style="margin-top:14px">البيانات من المصدر المجاني، وقد تتأخر عن الواقع بضع ساعات. الدوري الأوروبي والبطولات الأفريقية غير متاحة حاليًا.</div></div></section>
+</main>
+<footer><div class="wrap">© 2026 SNACES FOOTBALL. موقع مستقل وغير تابع لأي دوري أو نادٍ. البيانات من football-data.org.</div></footer>
+<script>
+const CUPS=[["CL","دوري أبطال أوروبا"],["WC","كأس العالم"]];
+const ST={LEAGUE_STAGE:"مرحلة الدوري",GROUP_STAGE:"دور المجموعات",PLAYOFFS:"الملحق",LAST_32:"دور الـ32",LAST_16:"دور الـ16",QUARTER_FINALS:"ربع النهائي",SEMI_FINALS:"نصف النهائي",THIRD_PLACE:"المركز الثالث",FINAL:"النهائي"};
+const $=id=>document.getElementById(id),esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+let cur="CL",D=null,view="next";
+const crest=t=>t&&t.crest?`<img class="crest" src="${esc(t.crest)}" alt="" loading="lazy" referrerpolicy="no-referrer">`:"";
+const nm=t=>t&&t.name?esc(t.name):"يحدد لاحقًا";
+const dt=d=>d?new Date(d).toLocaleString("ar-EG",{weekday:"short",day:"numeric",month:"short",hour:"2-digit",minute:"2-digit"}):"يحدد لاحقًا";
+const gname=g=>g?"المجموعة "+String(g).replace("GROUP_",""):"";
+function tabs(){$("tabs").innerHTML=CUPS.map(([c,n])=>`<button class="btn ${c===cur?"primary":"secondary"}" data-c="${c}">${n}</button>`).join("");$("tabs").querySelectorAll("button").forEach(b=>b.onclick=()=>{cur=b.dataset.c;load()})}
+async function load(){tabs();D=null;try{const r=await fetch("data/"+cur+".json");if(!r.ok)throw 0;D=await r.json()}catch(e){}render()}
+function table(rows){return `<div class="dataPanel" style="margin-bottom:12px"><div class="tableWrap"><table style="min-width:560px"><thead><tr><th>#</th><th>الفريق</th><th>لعب</th><th>فوز</th><th>تعادل</th><th>خسارة</th><th>له</th><th>عليه</th><th>فارق</th><th>نقاط</th></tr></thead><tbody>${rows.map(r=>`<tr><td>${r.pos}</td><td>${crest(r.team)}<b>${nm(r.team)}</b></td><td>${r.p}</td><td>${r.w}</td><td>${r.d}</td><td>${r.l}</td><td>${r.gf}</td><td>${r.ga}</td><td>${r.gd>0?"+":""}${r.gd}</td><td><b>${r.pts}</b></td></tr>`).join("")}</tbody></table></div></div>`}
+function render(){
+ const ok=D&&D.standings&&D.standings.length;
+ $("note").textContent=ok&&cur==="CL"?"نظام دوري الأبطال الحالي: جدول واحد، الأول للثامن يتأهلون مباشرة، ومن التاسع للرابع والعشرين يلعبون الملحق.":"";
+ if(!ok&&!(D&&D.matches&&D.matches.length)){$("standWrap").innerHTML='<div class="dataPanel" style="padding:18px"><p class="muted">بيانات البطولة دي مش متاحة حاليًا.</p></div>';$("fxList").innerHTML="";$("goalRows").innerHTML='<tr><td colspan="4" class="empty">—</td></tr>';return}
+ const groups={};(D.standings||[]).forEach(r=>(groups[r.group||""]??=[]).push(r));
+ $("standWrap").innerHTML=Object.keys(groups).sort().map(g=>(g?`<h3 style="margin:14px 0 8px">${gname(g)}</h3>`:"")+table(groups[g])).join("")||'<p class="muted">الجدول لسه مش متاح.</p>';
+ fixtures();
+ const g=(D.scorers||[]).slice().sort((a,b)=>b.goals-a.goals).slice(0,10);
+ $("goalRows").innerHTML=g.length?g.map((s,i)=>`<tr><td>${i+1}</td><td><b>${esc(s.name)}</b></td><td>${esc(s.team)}</td><td><b>${s.goals}</b></td></tr>`).join(""):'<tr><td colspan="4" class="empty">لا توجد بيانات.</td></tr>';
+ $("updated").textContent="";fetch("data/meta.json").then(r=>r.json()).then(m=>{$("updated").textContent="آخر تحديث للبيانات: "+new Date(m.updated).toLocaleString("ar-EG")}).catch(()=>{})}
+function fixtures(){const ms=D.matches||[];const fin=m=>m.status==="FINISHED"&&m.hg!=null;let l;
+ if(view==="next")l=ms.filter(m=>!fin(m)&&!["CANCELLED","POSTPONED","SUSPENDED"].includes(m.status)).sort((a,b)=>new Date(a.date)-new Date(b.date)).slice(0,20);
+ else l=ms.filter(fin).sort((a,b)=>new Date(b.date)-new Date(a.date)).slice(0,20);
+ $("fxList").innerHTML=l.length?l.map(m=>{const tag=ST[m.stage]||"",lbl=m.group?gname(m.group):tag,ok=m.home&&m.home.id&&m.away&&m.away.id;
+  const inner=`<span>${crest(m.home)}${nm(m.home)} ${view==="res"?`<b>${m.hg} - ${m.ag}</b>`:"ضد"} ${crest(m.away)}${nm(m.away)}</span><span class="muted">${lbl?esc(lbl)+" • ":""}${dt(m.date)}${ok?" ‹ تحليل":""}</span>`;
+  return ok?`<a class="fx" href="match.html?l=${cur}&id=${m.id}">${inner}</a>`:`<div class="fx">${inner}</div>`}).join(""):'<div class="muted">لا توجد مباريات.</div>'}
+$("vNext").onclick=()=>{view="next";$("vNext").className="btn primary";$("vRes").className="btn secondary";if(D)fixtures()};
+$("vRes").onclick=()=>{view="res";$("vRes").className="btn primary";$("vNext").className="btn secondary";if(D)fixtures()};
+load();
+</script>
+</body>
+</html>
