@@ -23,6 +23,7 @@ jobs:
       - name: Fetch data
         env:
           FOOTBALL_DATA_KEY: ${{ secrets.FOOTBALL_DATA_KEY }}
+          API_FOOTBALL_KEY: ${{ secrets.API_FOOTBALL_KEY }}
         run: node scripts/update-data.mjs
       - name: Commit if changed
         run: |
