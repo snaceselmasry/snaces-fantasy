@@ -1,3 +1,4 @@
+// يجلب بيانات الدوريات ويحفظها في data/*.json. التوكن بييجي من GitHub Secret: FOOTBALL_DATA_KEY
 import { mkdir, writeFile, readFile } from "node:fs/promises";
 import { createHash } from "node:crypto";
 
@@ -54,9 +55,51 @@ for (const code of FD_LEAGUES) {
   } catch (e) { console.warn("skip", code, e.message); }
 }
 
-// الدوري المصري من TheSportsDB (id 4829). الجدول بيتحسب من النتايج، ومفيش هدافين على المصدر المجاني.
-try {
-  const y = new Date().getFullYear(), season = new Date().getMonth() >= 6 ? `${y}-${y + 1}` : `${y - 1}-${y}`;
+// ===== الدوري المصري =====
+// الأول: API-Football (رسمي). لو فشل (مثلًا الباقة المجانية مش بتدي الموسم الحالي) نرجع لـ TheSportsDB.
+const AF = process.env.AF_BASE || "https://v3.football.api-sports.io/";
+const AFKEY = process.env.API_FOOTBALL_KEY;
+const NOW = new Date(), SY = NOW.getMonth() >= 6 ? NOW.getFullYear() : NOW.getFullYear() - 1;
+
+async function af(path) {
+  const r = await getJSON(AF + path, { "x-apisports-key": AFKEY });
+  const e = r.errors;
+  if (e && (Array.isArray(e) ? e.length : Object.keys(e).length)) throw new Error("API-Football: " + JSON.stringify(e));
+  return r.response || [];
+}
+const AF_STATUS = { FT: "FINISHED", AET: "FINISHED", PEN: "FINISHED", PST: "POSTPONED", CANC: "CANCELLED", SUSP: "SUSPENDED", ABD: "CANCELLED" };
+
+async function egyApiFootball() {
+  if (!AFKEY) throw new Error("API_FOOTBALL_KEY مش موجود");
+  const fx = await af(`fixtures?league=233&season=${SY}`); await sleep(GAP);
+  if (!fx.length) throw new Error(`مفيش مباريات لموسم ${SY}`);
+  const t = x => ({ id: x.id, name: x.name, crest: x.logo || null });
+  const matches = fx.map(f => ({
+    id: f.fixture.id, date: f.fixture.date, status: AF_STATUS[f.fixture.status.short] || "SCHEDULED",
+    md: Number((f.league.round || "").match(/(\d+)\s*$/)?.[1]) || null,
+    home: t(f.teams.home), away: t(f.teams.away), hg: f.goals.home, ag: f.goals.away }));
+  let standings = [];
+  try {
+    const st = await af(`standings?league=233&season=${SY}`); await sleep(GAP);
+    standings = (st[0]?.league?.standings?.[0] || []).map(r => ({ pos: r.rank, team: t(r.team), p: r.all.played, w: r.all.win, d: r.all.draw, l: r.all.lose, gf: r.all.goals.for, ga: r.all.goals.against, gd: r.goalsDiff, pts: r.points }));
+  } catch (e) { console.warn("EGY standings:", e.message); }
+  if (!standings.length) standings = computeTable(matches);
+  const sc = new Map();
+  for (const ep of ["players/topscorers", "players/topassists"]) {
+    try {
+      for (const x of await af(`${ep}?league=233&season=${SY}`)) {
+        const s0 = x.statistics?.[0] || {}, k = x.player.id, o = sc.get(k) || { name: x.player.name, team: s0.team?.name, played: s0.games?.appearences ?? 0, goals: 0, assists: null };
+        o.goals = Math.max(o.goals, s0.goals?.total ?? 0); o.assists = Math.max(o.assists ?? 0, s0.goals?.assists ?? 0) || o.assists;
+        sc.set(k, o);
+      }
+    } catch (e) { console.warn("EGY", ep, e.message); }
+    await sleep(GAP);
+  }
+  return { code: "EGY", name: "Egyptian Premier League", standings, matches, scorers: [...sc.values()], partial: false, source: "api-football" };
+}
+
+async function egyTheSportsDb() {
+  const season = `${SY}-${SY + 1}`;
   const ev = (await getJSON(`${TSDB}eventsseason.php?id=4829&s=${season}`)).events;
   if (!ev?.length) throw new Error("مفيش أحداث للدوري المصري");
   const t = (id, name, badge) => ({ id: Number(id), name, crest: badge || null });
@@ -67,8 +110,17 @@ try {
       home: t(e.idHomeTeam, e.strHomeTeam, e.strHomeTeamBadge), away: t(e.idAwayTeam, e.strAwayTeam, e.strAwayTeamBadge),
       hg: done ? Number(e.intHomeScore) : null, ag: done ? Number(e.intAwayScore) : null };
   });
-  out.EGY = { code: "EGY", name: "Egyptian Premier League", standings: computeTable(matches), matches, scorers: [], partial: true, truncated: ev.length >= 100 };
-} catch (e) { console.warn("skip EGY", e.message); }
+  return { code: "EGY", name: "Egyptian Premier League", standings: computeTable(matches), matches, scorers: [], partial: true, source: "thesportsdb" };
+}
+
+let egy = null;
+try { egy = await egyApiFootball(); console.log("EGY from API-Football"); }
+catch (e) { console.warn("EGY API-Football فشل:", e.message); }
+if (!egy) {
+  try { egy = await egyTheSportsDb(); console.log("EGY from TheSportsDB (احتياطي، ممكن يكون متأخر)"); }
+  catch (e) { console.warn("EGY TheSportsDB فشل:", e.message); }
+}
+if (egy) out.EGY = egy;
 
 if (!Object.keys(out).length) throw new Error("مفيش أي دوري اتجلب، مش هنكتب فوق الملفات القديمة");
 await mkdir("data", { recursive: true });
