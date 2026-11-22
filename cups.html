@@ -4,8 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#071b16">
-<title>البطولات الأوروبية | SNACES FOOTBALL</title>
-<meta name="description" content="دوري الأبطال والدوري الأوروبي ودوري المؤتمرات والسوبر الأوروبي: الترتيب والمباريات.">
+<title>دوري أبطال أوروبا | SNACES FOOTBALL</title>
+<meta name="description" content="دوري أبطال أوروبا: الترتيب والمباريات والهدافين.">
 <link rel="canonical" href="https://snaceselmasry.github.io/snaces-fantasy/cups.html">
 <meta property="og:type" content="website"><meta property="og:title" content="SNACES FOOTBALL | مباريات وتحليل"><meta property="og:description" content="نتائج • ترتيب • هدافين • تحليل مباريات"><meta property="og:image" content="https://snaceselmasry.github.io/snaces-fantasy/Designer.png"><meta name="twitter:card" content="summary_large_image">
 <link rel="icon" type="image/png" href="logo-192.png"><link rel="apple-touch-icon" href="logo-192.png">
@@ -19,11 +19,11 @@
 <section class="section"><div class="wrap"><div class="head"><div><h2>🌍 البطولات القارية</h2><p id="updated">جاري التحميل...</p></div></div><div class="cmpBar" id="tabs"></div><p class="muted" id="note" style="font-size:12px"></p></div></section>
 <section class="section" id="standings"><div class="wrap"><div class="head"><div><h2>🏆 الترتيب</h2></div></div><div id="standWrap"></div></div></section>
 <section class="section" id="matches"><div class="wrap"><div class="head"><div><h2>📅 المباريات</h2></div><div class="cmpBar"><button class="btn primary" id="vNext">القادمة</button><button class="btn secondary" id="vRes">النتائج</button></div></div><div class="fxGrid" id="fxList"></div></div></section>
-<section class="section" id="scorers"><div class="wrap"><div class="head"><div><h2>⚽ الهدافون</h2></div></div><div class="dataPanel"><div class="tableWrap"><table style="min-width:300px"><thead><tr><th>#</th><th>اللاعب</th><th>الفريق</th><th>أهداف</th></tr></thead><tbody id="goalRows"></tbody></table></div></div><div class="disclaimer" style="margin-top:14px">البيانات من المصدر المجاني، وقد تتأخر عن الواقع بضع ساعات. دوري أبطال أفريقيا وباقي البطولات القارية غير متاحة حاليًا.</div></div></section>
+<section class="section" id="scorers"><div class="wrap"><div class="head"><div><h2>⚽ الهدافون</h2></div></div><div class="dataPanel"><div class="tableWrap"><table style="min-width:300px"><thead><tr><th>#</th><th>اللاعب</th><th>الفريق</th><th>أهداف</th></tr></thead><tbody id="goalRows"></tbody></table></div></div><div class="disclaimer" style="margin-top:14px">البيانات من المصدر المجاني، وقد تتأخر عن الواقع بضع ساعات. الدوري الأوروبي والبطولات الأفريقية غير متاحة حاليًا.</div></div></section>
 </main>
-<footer><div class="wrap">© 2026 SNACES FOOTBALL. موقع مستقل وغير تابع لأي دوري أو نادٍ. البيانات من football-data.org وESPN.</div></footer>
+<footer><div class="wrap">© 2026 SNACES FOOTBALL. موقع مستقل وغير تابع لأي دوري أو نادٍ. البيانات من football-data.org.</div></footer>
 <script>
-const CUPS=[["CL","دوري أبطال أوروبا"],["EL","الدوري الأوروبي"],["ECL","دوري المؤتمرات"],["USC","السوبر الأوروبي"]];
+const CUPS=[["CL","دوري أبطال أوروبا"]];
 const ST={LEAGUE_STAGE:"مرحلة الدوري",GROUP_STAGE:"دور المجموعات",PLAYOFFS:"الملحق",LAST_32:"دور الـ32",LAST_16:"دور الـ16",QUARTER_FINALS:"ربع النهائي",SEMI_FINALS:"نصف النهائي",THIRD_PLACE:"المركز الثالث",FINAL:"النهائي"};
 const $=id=>document.getElementById(id),esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 let cur="CL",D=null,view="next";
