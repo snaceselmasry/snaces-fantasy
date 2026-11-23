@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#071b16">
+<title>تحدي كرة القدم اليومي | أسئلة جديدة كل يوم - SNACES FOOTBALL</title>
+<meta name="description" content="اختبر معلوماتك في كرة القدم: 5 أسئلة جديدة كل يوم، تابع نتيجتك وأيامك المتتالية.">
+<link rel="canonical" href="https://snaceselmasry.github.io/snaces-fantasy/challenges.html">
+<meta property="og:type" content="website"><meta property="og:title" content="SNACES FOOTBALL | مباريات وتحليل"><meta property="og:description" content="نتائج • ترتيب • هدافين • تحليل مباريات"><meta property="og:image" content="https://snaceselmasry.github.io/snaces-fantasy/Designer.png"><meta name="twitter:card" content="summary_large_image">
+<link rel="icon" type="image/png" href="Designer.png"><link rel="apple-touch-icon" href="Designer.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<meta name="google-site-verification" content="0o0Unafgksa2j9W3BSqj4DAp9wnsKM65Yjt0JKPjc30" />
+</head>
+<body>
+<div class="topbar"><div class="wrap nav"><a class="logo" href="index.html"><img src="Designer.png" alt="" width="38" height="38"><b>SNACES <span>FOOTBALL</span></b></a><div class="links"><a href="index.html">الرئيسية</a><a href="leagues.html">الدوريات</a><a href="cups.html">البطولات</a><a href="fantasy.html">الفانتازي</a><a href="challenges.html">التحديات</a><a href="transfers.html">الانتقالات</a></div></div></div>
+<main><section class="section"><div class="wrap"><div class="head"><div><h2>🎯 تحدي اليوم</h2><p id="dsub"></p></div><div class="kpi" style="min-width:130px;padding:10px 14px"><small>أيام متتالية 🔥</small><strong class="green" id="streak">0</strong></div></div>
+<div class="panel" id="game"></div>
+<div class="disclaimer" style="margin-top:14px">5 أسئلة جديدة كل يوم. نتيجتك وعدد أيامك المتتالية بتتحفظ على جهازك هو بس.</div></div></section></main>
+<footer><div class="wrap">© 2026 SNACES FOOTBALL. موقع مستقل وغير تابع لأي دوري أو نادٍ.</div></footer>
+<script>
+const $=id=>document.getElementById(id),esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const Q=[["أي منتخب فاز بكأس العالم أكثر من غيره؟", "البرازيل", "ألمانيا", "إيطاليا", "الأرجنتين"], ["من صاحب أكثر عدد من جوائز الكرة الذهبية؟", "ليونيل ميسي", "كريستيانو رونالدو", "ميشيل بلاتيني", "يوهان كرويف"], ["أي دولة استضافت كأس العالم 2022؟", "قطر", "روسيا", "البرازيل", "السعودية"], ["من فاز بكأس العالم 2022؟", "الأرجنتين", "فرنسا", "كرواتيا", "المغرب"], ["من فاز بكأس العالم 2018؟", "فرنسا", "كرواتيا", "بلجيكا", "إنجلترا"], ["أي دولة استضافت أول كأس عالم عام 1930؟", "أوروغواي", "البرازيل", "إيطاليا", "فرنسا"], ["أي نادٍ فاز بدوري أبطال أوروبا أكثر من غيره؟", "ريال مدريد", "ميلان", "ليفربول", "بايرن ميونخ"], ["ملعب أولد ترافورد هو ملعب أي نادٍ؟", "مانشستر يونايتد", "مانشستر سيتي", "ليفربول", "آرسنال"], ["ملعب كامب نو هو ملعب أي نادٍ؟", "برشلونة", "ريال مدريد", "أتلتيكو مدريد", "فالنسيا"], ["ملعب سانتياغو برنابيو هو ملعب أي نادٍ؟", "ريال مدريد", "برشلونة", "إشبيلية", "فياريال"], ["كم دقيقة مدة المباراة الرسمية (من غير الوقت الإضافي)؟", "90", "80", "100", "120"], ["كم عدد لاعبي كل فريق داخل الملعب عند بداية المباراة؟", "11", "10", "12", "9"], ["من فاز بكأس أمم أوروبا (يورو) 2024؟", "إسبانيا", "إنجلترا", "فرنسا", "ألمانيا"], ["أي منتخب هو الأكثر فوزًا بكأس الأمم الأفريقية؟", "مصر", "الكاميرون", "غانا", "نيجيريا"], ["أي منتخب هو الوحيد الذي شارك في كل نسخ كأس العالم؟", "البرازيل", "ألمانيا", "الأرجنتين", "إيطاليا"], ["من هو الهداف التاريخي للدوري الإنجليزي الممتاز؟", "آلان شيرر", "واين روني", "هاري كين", "محمد صلاح"], ["في أي عام انضم محمد صلاح إلى ليفربول؟", "2017", "2015", "2019", "2013"], ["أي منتخب عربي بلغ نصف نهائي كأس العالم 2022؟", "المغرب", "السعودية", "تونس", "قطر"], ["مباراة ريال مدريد وبرشلونة تُسمّى؟", "الكلاسيكو", "ديربي ميلانو", "ديربي المدينة", "ديربي شمال لندن"], ["أي فريقين يلعبان ديربي شمال لندن؟", "آرسنال وتوتنهام", "تشيلسي وفولهام", "وست هام وميلوول", "كريستال بالاس وبرينتفورد"], ["في أي دوري يلعب بايرن ميونخ؟", "البوندسليغا", "الليغا", "السيري آ", "الدوري الفرنسي"], ["ما لون بطاقة الطرد؟", "الأحمر", "الأصفر", "الأزرق", "الأخضر"], ["كم منتخبًا يشارك في كأس العالم 2026؟", "48", "32", "40", "64"], ["أول منتخب أفريقي بلغ نصف نهائي كأس العالم؟", "المغرب", "الكاميرون", "السنغال", "غانا"], ["أي منتخب هو الأكثر فوزًا بكأس أمم أوروبا (يورو)؟", "إسبانيا", "ألمانيا", "إيطاليا", "فرنسا"], ["من أول فائز بجائزة الكرة الذهبية عام 1956؟", "ستانلي ماثيوز", "ألفريدو دي ستيفانو", "بيليه", "يوهان كرويف"], ["كم مرة فاز بيليه بكأس العالم؟", "3", "2", "4", "5"], ["أي نادٍ فاز بدوري أبطال أوروبا 2005 بعد تأخره 0-3 في الشوط الأول؟", "ليفربول", "ميلان", "تشيلسي", "مانشستر يونايتد"], ["من فاز بكأس العالم 2010؟", "إسبانيا", "هولندا", "ألمانيا", "أوروغواي"], ["أي دولة استضافت كأس العالم 2014؟", "البرازيل", "جنوب أفريقيا", "ألمانيا", "روسيا"]];
+const N=5;
+function rng(seed){let a=seed>>>0;return()=>{a=(a+0x6D2B79F5)>>>0;let t=a;t=Math.imul(t^(t>>>15),t|1);t^=t+Math.imul(t^(t>>>7),t|61);return((t^(t>>>14))>>>0)/4294967296}}
+const day=()=>new Date().toLocaleDateString("en-CA");
+const hash=s=>{let h=2166136261;for(const c of s){h^=c.charCodeAt(0);h=Math.imul(h,16777619)}return h>>>0};
+const yest=k=>{const d=new Date(k+"T12:00:00");d.setDate(d.getDate()-1);return d.toLocaleDateString("en-CA")};
+function pick(k){const r=rng(hash("snaces"+k)),idx=Q.map((_,i)=>i);for(let i=idx.length-1;i>0;i--){const j=Math.floor(r()*(i+1));[idx[i],idx[j]]=[idx[j],idx[i]]}
+ return idx.slice(0,N).map(i=>{const q=Q[i],o=q.slice(1).map((t,j)=>({t,ok:j===0}));for(let i=o.length-1;i>0;i--){const j=Math.floor(r()*(i+1));[o[i],o[j]]=[o[j],o[i]]}return{q:q[0],o}})}
+const get=k=>{try{return JSON.parse(localStorage.getItem(k)||"null")}catch(e){return null}};
+const put=(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}};
+const K=day(),qs=pick(K);let st=get("snaces_day")||{};if(st.date!==K)st={date:K,i:0,score:0,done:false};
+const sk=get("snaces_streak")||{last:"",count:0,best:0};
+$("dsub").textContent=new Date().toLocaleDateString("ar-EG",{weekday:"long",day:"numeric",month:"long"});
+function shownStreak(){const alive=sk.last===K||sk.last===yest(K);$("streak").textContent=alive?sk.count:0}
+function finish(){if(st.done)return;st.done=true;put("snaces_day",st);if(sk.last!==K){sk.count=sk.last===yest(K)?sk.count+1:1;sk.last=K;sk.best=Math.max(sk.best,sk.count);put("snaces_streak",sk)}}
+function render(){shownStreak();const g=$("game");
+ if(st.i>=N){finish();shownStreak();const msg=st.score===N?"ممتاز! إجابات كلها صح 🏆":st.score>=3?"شغل حلو 👏":"حاول تاني بكرة 💪";
+  const txt=`SNACES FOOTBALL ⚽ ${K} — ${st.score}/${N} 🔥${sk.count}`;
+  g.innerHTML=`<h3 style="margin:0 0 8px">نتيجتك: ${st.score} من ${N}</h3><p>${msg}</p><p class="muted">تعالى بكرة لأسئلة جديدة.</p><button class="btn primary" id="share">انسخ النتيجة</button> <span id="cp" class="muted"></span>`;
+  $("share").onclick=()=>{try{navigator.clipboard.writeText(txt).then(()=>{$("cp").textContent="اتنسخت ✓"})}catch(e){$("cp").textContent=txt}};return}
+ const q=qs[st.i];g.innerHTML=`<small class="muted">سؤال ${st.i+1} من ${N}</small><h3 style="margin:6px 0 14px">${esc(q.q)}</h3><div class="sl" id="opts" style="flex-direction:column;align-items:stretch">${q.o.map((o,j)=>`<button class="btn secondary" data-j="${j}" style="text-align:right">${esc(o.t)}</button>`).join("")}</div><p id="fb" style="min-height:24px"></p>`;
+ $("opts").querySelectorAll("button").forEach(b=>b.onclick=()=>answer(+b.dataset.j))}
+function answer(j){const q=qs[st.i],bs=[...$("opts").querySelectorAll("button")];if(bs.some(b=>b.disabled))return;
+ bs.forEach((b,i)=>{b.disabled=true;if(q.o[i].ok){b.className="btn primary"}else if(i===j){b.style.borderColor="#e0654f";b.style.color="#e0654f"}});
+ const ok=q.o[j].ok;if(ok)st.score++;st.i++;put("snaces_day",st);$("fb").innerHTML=(ok?"✅ صح!":"❌ غلط")+' <button class="btn secondary" id="nx">'+(st.i>=N?"النتيجة":"التالي")+'</button>';$("nx").onclick=render}
+render();
+
+</script>
+</body>
+</html>

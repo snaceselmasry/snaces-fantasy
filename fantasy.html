@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#071b16">
+<title>فانتازي البريميرليج | أفضل اللاعبين وصعوبة المباريات - SNACES FOOTBALL</title>
+<meta name="description" content="أفضل لاعبي فانتازي البريميرليج: النقاط والفورم والقيمة والملكية، وجدول صعوبة المباريات القادمة لكل فريق.">
+<link rel="canonical" href="https://snaceselmasry.github.io/snaces-fantasy/fantasy.html">
+<meta property="og:type" content="website"><meta property="og:title" content="SNACES FOOTBALL | مباريات وتحليل"><meta property="og:description" content="نتائج • ترتيب • هدافين • تحليل مباريات"><meta property="og:image" content="https://snaceselmasry.github.io/snaces-fantasy/Designer.png"><meta name="twitter:card" content="summary_large_image">
+<link rel="icon" type="image/png" href="Designer.png"><link rel="apple-touch-icon" href="Designer.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<meta name="google-site-verification" content="0o0Unafgksa2j9W3BSqj4DAp9wnsKM65Yjt0JKPjc30" />
+</head>
+<body>
+<div class="topbar"><div class="wrap nav"><a class="logo" href="index.html"><img src="Designer.png" alt="" width="38" height="38"><b>SNACES <span>FOOTBALL</span></b></a><div class="links"><a href="index.html">الرئيسية</a><a href="leagues.html">الدوريات</a><a href="cups.html">البطولات</a><a href="fantasy.html">الفانتازي</a><a href="challenges.html">التحديات</a><a href="transfers.html">الانتقالات</a></div></div></div>
+<main>
+<section class="section"><div class="wrap"><div class="head"><div><h2>🎮 فانتازي البريميرليج</h2><p id="upd">جاري التحميل...</p></div></div>
+<div class="kpis"><div class="kpi"><small>الجولة</small><strong class="green" id="kGw">—</strong></div><div class="kpi"><small>الموعد النهائي</small><strong id="kDl" style="font-size:16px">—</strong></div><div class="kpi"><small>لاعبين</small><strong id="kPl">—</strong></div><div class="kpi"><small>مشاركون</small><strong id="kTot" style="font-size:18px">—</strong></div></div></div></section>
+<section class="section"><div class="wrap"><div class="head"><div><h2>🔎 اللاعبين</h2></div></div>
+<div class="cmpBar" id="posBar"></div>
+<div class="vs" style="margin:12px 0"><input class="control" id="q" placeholder="ابحث عن لاعب..." style="min-width:200px"><select class="control" id="sort"><option value="total_points">الأكثر نقاطًا</option><option value="form">الأفضل فورم</option><option value="value">الأفضل قيمة (نقاط/سعر)</option><option value="selected_by_percent">الأكثر ملكية</option><option value="now_cost">الأغلى سعرًا</option><option value="expected_goals">الأعلى xG</option></select></div>
+<div class="dataPanel"><div class="tableWrap"><table style="min-width:640px"><thead><tr><th>#</th><th>اللاعب</th><th>المركز</th><th>السعر</th><th>نقاط</th><th>فورم</th><th>ملكية</th><th>xG</th><th>قيمة</th></tr></thead><tbody id="rows"></tbody></table></div></div>
+<p style="margin-top:12px"><button class="btn secondary" id="more">عرض المزيد</button></p></div></section>
+<section class="section"><div class="wrap"><div class="head"><div><h2>📅 صعوبة المباريات القادمة</h2><p>الأسهل أولًا. 1 سهل جدًا و5 صعب جدًا.</p></div></div><div class="dataPanel"><div class="tableWrap"><table style="min-width:520px"><thead><tr><th>الفريق</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th></tr></thead><tbody id="fdr"></tbody></table></div></div>
+<div class="disclaimer" style="margin-top:14px">البيانات من واجهة الفانتازي الرسمية للبريميرليج وتتحدّث كل بضع ساعات. الموقع مستقل وغير تابع للدوري.</div></div></section>
+</main>
+<footer><div class="wrap">© 2026 SNACES FOOTBALL. موقع مستقل وغير تابع لأي دوري أو نادٍ.</div></footer>
+<script>
+const $=id=>document.getElementById(id),esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const POS={1:"حارس",2:"مدافع",3:"وسط",4:"مهاجم"};
+let F=null,pos=0,shown=30;const T={};
+const val=p=>p.now_cost?p.total_points/(p.now_cost/10):0;
+const K={total_points:p=>p.total_points,form:p=>+p.form,value:val,selected_by_percent:p=>+p.selected_by_percent,now_cost:p=>p.now_cost,expected_goals:p=>+p.expected_goals};
+function bar(){$("posBar").innerHTML=[[0,"الكل"],[1,"حراس"],[2,"مدافعين"],[3,"وسط"],[4,"مهاجمين"]].map(([k,n])=>`<button class="btn ${k===pos?"primary":"secondary"}" data-p="${k}">${n}</button>`).join("");$("posBar").querySelectorAll("button").forEach(b=>b.onclick=()=>{pos=+b.dataset.p;shown=30;bar();players()})}
+function players(){const q=$("q").value.trim().toLowerCase(),f=K[$("sort").value]||K.total_points;
+ const l=F.elements.filter(p=>(!pos||p.element_type===pos)&&(!q||(p.web_name+" "+p.first_name+" "+p.second_name).toLowerCase().includes(q))).sort((a,b)=>f(b)-f(a));
+ $("rows").innerHTML=l.slice(0,shown).map((p,i)=>{const t=T[p.team]||{},hurt=p.status!=="a";return `<tr><td>${i+1}</td><td><b>${esc(p.web_name)}</b>${hurt?' <span title="غير متاح أو مشكوك فيه" style="color:var(--gold)">⚠</span>':""} <small class="muted">${esc(t.short_name||"")}</small></td><td>${POS[p.element_type]||""}</td><td>£${(p.now_cost/10).toFixed(1)}</td><td><b>${p.total_points}</b></td><td>${p.form}</td><td>${p.selected_by_percent}%</td><td>${(+p.expected_goals).toFixed(1)}</td><td>${val(p).toFixed(1)}</td></tr>`}).join("")||'<tr><td colspan="9" class="empty">لا نتائج.</td></tr>';
+ $("more").style.display=l.length>shown?"":"none"}
+function fdr(){const ev=F.events.find(e=>e.is_next)||F.events.find(e=>e.is_current)||{id:1},rows=F.teams.map(t=>{const fx=F.fixtures.filter(f=>f.event&&f.event>=ev.id&&(f.team_h===t.id||f.team_a===t.id)).sort((a,b)=>a.event-b.event).slice(0,5).map(f=>{const h=f.team_h===t.id,o=T[h?f.team_a:f.team_h]||{};return{n:o.short_name||"?",h,d:h?f.team_h_difficulty:f.team_a_difficulty}});const avg=fx.length?fx.reduce((s,x)=>s+x.d,0)/fx.length:9;return{t,fx,avg}}).sort((a,b)=>a.avg-b.avg);
+ $("fdr").innerHTML=rows.map(r=>`<tr><td><b>${esc(r.t.name)}</b></td>${[0,1,2,3,4].map(i=>{const x=r.fx[i];return x?`<td><span class="fdr fdr${x.d}" style="display:inline-block;min-width:54px;text-align:center">${esc(x.n)} ${x.h?"(H)":"(A)"}</span></td>`:"<td>—</td>"}).join("")}</tr>`).join("")}
+function init(){const cur=F.events.find(e=>e.is_current)||F.events.find(e=>e.is_next),nx=F.events.find(e=>e.is_next);
+ $("kGw").textContent=cur?cur.id:"—";$("kDl").textContent=nx&&nx.deadline_time?new Date(nx.deadline_time).toLocaleString("ar-EG",{weekday:"short",day:"numeric",month:"short",hour:"2-digit",minute:"2-digit"}):"—";$("kPl").textContent=F.elements.length;$("kTot").textContent=F.total_players?Number(F.total_players).toLocaleString("ar-EG"):"—";
+ bar();players();fdr();$("q").oninput=()=>{shown=30;players()};$("sort").onchange=()=>{shown=30;players()};$("more").onclick=()=>{shown+=30;players()}}
+fetch("data/fpl.json").then(r=>{if(!r.ok)throw 0;return r.json()}).then(d=>{F=d;d.teams.forEach(t=>T[t.id]=t);init();fetch("data/meta.json").then(r=>r.json()).then(m=>{$("upd").textContent="آخر تحديث للبيانات: "+new Date(m.updated).toLocaleString("ar-EG")}).catch(()=>{$("upd").textContent=""})}).catch(()=>{$("upd").textContent="";document.querySelector("main").innerHTML='<section class="section"><div class="wrap"><div class="dataPanel" style="padding:20px"><p class="muted">بيانات الفانتازي مش متاحة حاليًا. حاول بعد شوية.</p></div></div></section>'});
+
+</script>
+</body>
+</html>

@@ -38,3 +38,5 @@ a.card:hover{border-color:var(--green)}.card h3{margin:0 0 6px;font-size:19px}.c
 .mh{text-align:center;padding:10px 0}.mh .tm{display:inline-flex;flex-direction:column;align-items:center;gap:8px;width:42%;font-weight:bold;font-size:18px}.mh .tm img{width:64px;height:64px;object-fit:contain}
 .mh .sc{display:inline-block;font-size:38px;font-weight:800;min-width:15%}.mh small{display:block;color:var(--muted);margin-top:6px}
 .sl{display:flex;gap:8px;flex-wrap:wrap}.sl span{background:var(--panel2);border:1px solid var(--line);border-radius:9px;padding:7px 12px;font-size:13px}
+
+.logo img,.heroLogo{object-fit:contain}.links{flex-wrap:wrap;gap:8px 16px}@media(max-width:700px){.links a{font-size:12px}}
