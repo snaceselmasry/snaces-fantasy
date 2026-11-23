@@ -5,27 +5,49 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#071b16">
 <title>SNACES FOOTBALL | نتائج وتحليل مباريات كرة القدم</title>
-<meta name="description" content="نتائج وترتيب الدوريات الكبرى، تحليل وتوقع المباريات، وأقسام عن الفانتازي والبطولات والتحديات.">
-<link rel="canonical" href="https://snaceselmasry.github.io/snaces-fantasy/">
-<meta property="og:type" content="website"><meta property="og:title" content="SNACES FOOTBALL | مباريات وتحليل"><meta property="og:description" content="نتائج • ترتيب • هدافين • تحليل مباريات"><meta property="og:image" content="https://snaceselmasry.github.io/snaces-fantasy/Designer.png"><meta name="twitter:card" content="summary_large_image">
+<meta name="description" content="نتائج وترتيب الدوريات الكبرى، تحليل وتوقع المباريات، ألعاب وتحديات يومية، وأخبار الانتقالات.">
+<link rel="canonical" href="https://snaceselmasry.github.io/snaces-football/">
+<meta property="og:type" content="website"><meta property="og:title" content="SNACES FOOTBALL | مباريات وتحليل"><meta property="og:description" content="نتائج • ترتيب • هدافين • تحليل مباريات"><meta property="og:image" content="https://snaceselmasry.github.io/snaces-football/Designer.png"><meta name="twitter:card" content="summary_large_image">
 <link rel="icon" type="image/png" href="Designer.png"><link rel="apple-touch-icon" href="Designer.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="style.css?v=3">
 <meta name="google-site-verification" content="0o0Unafgksa2j9W3BSqj4DAp9wnsKM65Yjt0JKPjc30" />
-</head>
+<script src="site.js?v=3"></script></head>
 <body>
-<div class="topbar"><div class="wrap nav"><a class="logo" href="index.html"><img src="Designer.png" alt="" width="38" height="38"><b>SNACES <span>FOOTBALL</span></b></a><div class="links"><a href="index.html">الرئيسية</a><a href="leagues.html">الدوريات</a><a href="cups.html">البطولات</a><a href="match.html">المباريات</a><a href="fantasy.html">الفانتازي</a><a href="squad.html">بناء التشكيلة</a><a href="games.html">الألعاب</a><a href="transfers.html">الانتقالات</a></div><div class="navTools"><button class="iconBtn" id="themeToggle" type="button" aria-label="تغيير المظهر">☀️</button><button class="iconBtn" id="accountBtn" type="button">حسابي</button></div></div></div></div>
+<div class="topbar"><div class="wrap nav"><a class="logo" href="index.html"><img src="Designer.png" alt="" width="38" height="38"><b>SNACES <span>FOOTBALL</span></b></a><div class="links"><a href="index.html">الرئيسية</a><a href="leagues.html">الدوريات</a><a href="cups.html">البطولات</a><a href="fantasy.html">الفانتازي</a><a href="challenges.html">التحديات</a><a href="transfers.html">الانتقالات</a><button id="themeBtn" class="themeBtn" type="button" aria-label="تبديل الوضع الليلي والنهاري">☀️</button></div></div></div>
 <main>
-<div class="wrap hero"><div class="heroGrid"><div><div class="eyebrow">MATCHES • TABLES • ANALYSIS</div><h1>تابع الكورة<br><span>بالأرقام.</span></h1><p>نتائج وترتيب الدوريات الكبرى وتحليل وتوقع كل مباراة. اختر القسم اللي يهمك.</p></div><div class="heroVisual"><img class="heroLogo" src="Designer.png" alt="SNACES" width="340" height="340" fetchpriority="high"></div></div></div>
+<div class="wrap hero"><div class="heroGrid"><div><div class="eyebrow">MATCHES • TABLES • ANALYSIS</div><h1>تابع الكورة<br><span>بالأرقام.</span></h1><p>نتائج وترتيب الدوريات الكبرى، تحليل وتوقع كل مباراة، ألعاب وتحديات يومية، وأخبار الانتقالات لحظة بلحظة.</p><div class="actions"><a class="btn primary" href="leagues.html#matches">المباريات</a><a class="btn secondary" href="challenges.html">تحدي اليوم 🎯</a></div></div><div class="heroVisual"><img class="heroLogo" src="Designer.png" alt="SNACES" width="340" height="340" fetchpriority="high"></div></div></div>
+<section class="section"><div class="wrap"><div class="head"><div><h2>🥇 متصدرو الدوريات</h2><p id="upd"></p></div></div><div class="kpis" id="leaders" style="grid-template-columns:repeat(auto-fit,minmax(170px,1fr))"></div></div></section>
+<section class="section"><div class="wrap"><div class="two2">
+<div><div class="head"><div><h2>📅 مباريات قادمة</h2></div></div><div class="dataPanel" id="nextList"><div class="empty">جاري التحميل...</div></div></div>
+<div><div class="head"><div><h2>🔁 آخر الأخبار</h2></div><a class="btn secondary" href="transfers.html">كل الأخبار</a></div><div class="dataPanel" id="newsList"><div class="empty">جاري التحميل...</div></div>
+<a class="card" href="challenges.html" style="margin-top:14px"><div class="ic">🎯</div><h3>تحدي اليوم</h3><p id="streakTxt">5 أسئلة جديدة كل يوم + 4 ألعاب تانية. ابدأ سلسلتك!</p></a></div>
+</div></div></section>
 <section class="section"><div class="wrap"><div class="head"><div><h2>الأقسام</h2></div></div><div class="cards">
 <a class="card" href="leagues.html"><div class="ic">🏆</div><h3>الدوريات الكبرى</h3><p>الترتيب والنتائج والمواعيد والهدافين لخمس دوريات.</p></a>
 <a class="card" href="leagues.html#matches"><div class="ic">🧠</div><h3>تحليل المباريات</h3><p>افتح أي مباراة وشوف التوقع والفورم والأرقام.</p></a>
 <a class="card" href="cups.html"><div class="ic">🌍</div><h3>دوري أبطال أوروبا</h3><p>الترتيب والمباريات والهدافين.</p></a>
-<a class="card" href="fantasy.html"><div class="ic">🎮</div><h3>أدوات الفانتازي</h3><p>أفضل اللاعبين وصعوبة المباريات القادمة.</p></a>
-<a class="card" href="challenges.html"><div class="ic">🎯</div><h3>تحدي اليوم</h3><p>5 أسئلة جديدة كل يوم وتابع أيامك المتتالية.</p></a>
-<a class="card" href="transfers.html"><div class="ic">🔁</div><h3>الانتقالات</h3><p>أخبار انتقالات اللاعبين.</p></a>
-<a class="card" href="squad.html"><div class="ic">👕</div><h3>بناء التشكيلة</h3><p>كوّن فريقك ضمن الميزانية والقواعد الرسمية.</p></a><a class="card" href="games.html"><div class="ic">🕹️</div><h3>مركز الألعاب</h3><p>اختبر معلوماتك في ألعاب كرة القدم المتنوعة.</p></a>
+<a class="card" href="fantasy.html"><div class="ic">🎮</div><h3>الفانتازي</h3><p>أفضل اللاعبين، صعوبة المباريات، وابنِ تشكيلتك.</p></a>
+<a class="card" href="challenges.html"><div class="ic">🎯</div><h3>التحديات والألعاب</h3><p>أسئلة يومية، خمّن الشعار، أيهما أكثر، خمّن النتيجة، ومن هو اللاعب.</p></a>
+<a class="card" href="transfers.html"><div class="ic">🔁</div><h3>الانتقالات</h3><p>أخبار وشائعات تتحدث تلقائيًا.</p></a>
 </div></div></section></main>
-<footer><div class="wrap">© 2026 SNACES FOOTBALL. موقع مستقل وغير تابع لأي دوري أو نادٍ. البيانات من football-data.org.</div></footer>
-<script src="supabase-config.js"></script><script src="app.js"></script></body>
+<footer><div class="wrap">© 2026 SNACES FOOTBALL. موقع مستقل وغير تابع لأي دوري أو نادٍ.</div></footer>
+<script>
+const $=id=>document.getElementById(id),esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const LN={PL:"الإنجليزي",PD:"الإسباني",SA:"الإيطالي",BL1:"الألماني",FL1:"الفرنسي",CL:"الأبطال"};
+const crest=u=>u?`<img class="crest" src="${esc(u)}" alt="" loading="lazy" referrerpolicy="no-referrer">`:"";
+const dt=d=>new Date(d).toLocaleString("ar-EG",{weekday:"short",day:"numeric",month:"short",hour:"2-digit",minute:"2-digit"});
+fetch("data/home.json").then(r=>{if(!r.ok)throw 0;return r.json()}).then(h=>{
+ $("leaders").innerHTML=(h.leaders||[]).map(x=>`<a class="kpi" href="leagues.html" style="text-decoration:none;color:inherit"><small>${LN[x.l]||x.l}</small><strong style="font-size:17px">${crest(x.c)}${esc(x.n)}</strong><small>${x.pts} نقطة • ${x.p} مباراة</small></a>`).join("")||'<div class="muted">لا توجد بيانات.</div>';
+ $("nextList").innerHTML=(h.next||[]).map(m=>`<a class="row" href="match.html?l=${esc(m.l)}&id=${m.id}"><span>${crest(m.hc)}${esc(m.h)} ضد ${crest(m.ac)}${esc(m.a)}</span><span class="muted">${dt(m.d)}<span class="lg">${LN[m.l]||""}</span></span></a>`).join("")||'<div class="empty">لا توجد مباريات قادمة.</div>';
+}).catch(()=>{$("leaders").innerHTML="";$("nextList").innerHTML='<div class="empty">البيانات مش متاحة حاليًا.</div>'});
+const KL={rumor:"شائعة",official:"رسمي",news:"خبر"};
+fetch("data/transfers-news.json").then(r=>{if(!r.ok)throw 0;return r.json()}).then(n=>{
+ $("newsList").innerHTML=(n.items||[]).slice(0,6).map(i=>`<a class="row" href="${esc(i.u)}" target="_blank" rel="noopener noreferrer"><span>${esc(i.t)}</span><span class="muted"><span class="lg">${KL[i.k]||"خبر"}</span> ${esc(i.s)}</span></a>`).join("")||'<div class="empty">لا توجد أخبار حاليًا.</div>';
+}).catch(()=>{$("newsList").innerHTML='<div class="empty">لا توجد أخبار حاليًا.</div>'});
+fetch("data/meta.json").then(r=>r.json()).then(m=>{$("upd").textContent="آخر تحديث: "+new Date(m.updated).toLocaleString("ar-EG")}).catch(()=>{});
+try{const s=JSON.parse(localStorage.getItem("snaces_streak")||"null");if(s&&s.count>0){const y=d=>{const x=new Date(d+"T12:00:00");x.setDate(x.getDate()-1);return x.toLocaleDateString("en-CA")},t=new Date().toLocaleDateString("en-CA");if(s.last===t||s.last===y(t))$("streakTxt").textContent="سلسلتك الحالية: "+s.count+" يوم 🔥 كمّل النهارده!"}}catch(e){}
+
+</script>
+</body>
 </html>

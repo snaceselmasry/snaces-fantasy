@@ -4,30 +4,33 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#071b16">
-<title>الانتقالات | SNACES FOOTBALL</title>
-<meta name="description" content="آخر انتقالات اللاعبين: الرسمية والشائعات.">
-<link rel="canonical" href="https://snaceselmasry.github.io/snaces-fantasy/transfers.html">
-<meta property="og:type" content="website"><meta property="og:title" content="SNACES FOOTBALL | مباريات وتحليل"><meta property="og:description" content="نتائج • ترتيب • هدافين • تحليل مباريات"><meta property="og:image" content="https://snaceselmasry.github.io/snaces-fantasy/Designer.png"><meta name="twitter:card" content="summary_large_image">
+<title>الانتقالات | أخبار وشائعات تتحدث تلقائيًا - SNACES FOOTBALL</title>
+<meta name="description" content="آخر أخبار وشائعات انتقالات اللاعبين بتتحدث تلقائيًا.">
+<link rel="canonical" href="https://snaceselmasry.github.io/snaces-football/transfers.html">
+<meta property="og:type" content="website"><meta property="og:title" content="SNACES FOOTBALL | مباريات وتحليل"><meta property="og:description" content="نتائج • ترتيب • هدافين • تحليل مباريات"><meta property="og:image" content="https://snaceselmasry.github.io/snaces-football/Designer.png"><meta name="twitter:card" content="summary_large_image">
 <link rel="icon" type="image/png" href="Designer.png"><link rel="apple-touch-icon" href="Designer.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="style.css?v=3">
 <meta name="google-site-verification" content="0o0Unafgksa2j9W3BSqj4DAp9wnsKM65Yjt0JKPjc30" />
-</head>
+<script src="site.js?v=3"></script></head>
 <body>
-<div class="topbar"><div class="wrap nav"><a class="logo" href="index.html"><img src="Designer.png" alt="" width="38" height="38"><b>SNACES <span>FOOTBALL</span></b></a><div class="links"><a href="index.html">الرئيسية</a><a href="leagues.html">الدوريات</a><a href="cups.html">البطولات</a><a href="match.html">المباريات</a><a href="fantasy.html">الفانتازي</a><a href="squad.html">بناء التشكيلة</a><a href="games.html">الألعاب</a><a href="transfers.html">الانتقالات</a></div><div class="navTools"><button class="iconBtn" id="themeToggle" type="button" aria-label="تغيير المظهر">☀️</button><button class="iconBtn" id="accountBtn" type="button">حسابي</button></div></div></div></div>
-<main><section class="section"><div class="wrap"><div class="head"><div><h2>🔁 الانتقالات</h2><p id="tsub"></p></div><div class="cmpBar" id="tf"></div></div><div class="fxGrid" id="list"></div>
-<div class="disclaimer" style="margin-top:14px">الانتقالات بتتضاف يدويًا، فمش بالضرورة تكون لايف. الأخبار غير الرسمية (شائعات) متعلّمة بوضوح.</div></div></section></main>
+<div class="topbar"><div class="wrap nav"><a class="logo" href="index.html"><img src="Designer.png" alt="" width="38" height="38"><b>SNACES <span>FOOTBALL</span></b></a><div class="links"><a href="index.html">الرئيسية</a><a href="leagues.html">الدوريات</a><a href="cups.html">البطولات</a><a href="fantasy.html">الفانتازي</a><a href="challenges.html">التحديات</a><a href="transfers.html">الانتقالات</a><button id="themeBtn" class="themeBtn" type="button" aria-label="تبديل الوضع الليلي والنهاري">☀️</button></div></div></div>
+<main><section class="section"><div class="wrap"><div class="head"><div><h2>🔁 الانتقالات</h2><p id="tsub">أخبار وشائعات الانتقالات، بتتحدث تلقائيًا كل بضع ساعات.</p></div><div class="cmpBar" id="tf"></div></div><div class="dataPanel" id="list"><div class="empty">جاري التحميل...</div></div>
+<div class="disclaimer" style="margin-top:14px">الأخبار بتتجمع تلقائيًا من مصادر صحفية (Sky Sports وBBC Sport وThe Guardian)، وبنعرض العنوان والرابط بس. التصنيف (رسمي / شائعة) آلي حسب كلمات العنوان وممكن يغلط، افتح الرابط للتفاصيل. العناوين بالإنجليزية.</div></div></section></main>
 <footer><div class="wrap">© 2026 SNACES FOOTBALL. موقع مستقل وغير تابع لأي دوري أو نادٍ.</div></footer>
 <script>
 const $=id=>document.getElementById(id),esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 let L=[],f="all";
-const ST={official:["رسمي","fdr1"],rumor:["شائعة","fdr3"]};
-function bar(){$("tf").innerHTML=[["all","الكل"],["official","رسمي"],["rumor","شائعات"]].map(([k,n])=>`<button class="btn ${k===f?"primary":"secondary"}" data-f="${k}">${n}</button>`).join("");$("tf").querySelectorAll("button").forEach(b=>b.onclick=()=>{f=b.dataset.f;bar();draw()})}
-function draw(){const l=L.filter(x=>f==="all"||x.status===f);$("list").innerHTML=l.length?l.map(x=>{const s=ST[x.status]||ST.official;return `<div class="fx"><span><b>${esc(x.player)}</b> ‹ ${esc(x.from||"؟")} ← ${esc(x.to||"؟")}${x.fee?` • ${esc(x.fee)}`:""}</span><span class="muted"><span class="fdr ${s[1]}">${s[0]}</span> ${esc(x.date||"")}</span></div>`}).join(""):'<div class="muted">لا توجد انتقالات حاليًا.</div>'}
-fetch("data/transfers.json?updated="+Date.now(),{cache:"no-store"}).then(r=>{if(!r.ok)throw 0;return r.json()}).then(d=>{L=(Array.isArray(d)?d:[]).filter(x=>x&&x.player).sort((a,b)=>String(b.date).localeCompare(String(a.date)));$("tsub").textContent=L.length?L.length+" خبر":"";bar();draw()}).catch(()=>{bar();draw()});
+const KL={official:["رسمي","fdr1"],rumor:["شائعة","fdr3"],news:["خبر","fdr3"]};
+const ago=d=>{if(!d)return"";const m=Math.max(1,Math.round((Date.now()-Date.parse(d))/60000));return m<60?`منذ ${m} د`:m<1440?`منذ ${Math.round(m/60)} س`:`منذ ${Math.round(m/1440)} يوم`};
+function bar(){$("tf").innerHTML=[["all","الكل"],["official","رسمي"],["rumor","شائعات"],["news","أخبار"]].map(([k,n])=>`<button class="btn ${k===f?"primary":"secondary"}" data-f="${k}">${n}</button>`).join("");$("tf").querySelectorAll("button").forEach(b=>b.onclick=()=>{f=b.dataset.f;bar();draw()})}
+function draw(){const l=L.filter(x=>f==="all"||x.k===f);$("list").innerHTML=l.length?l.map(x=>{const s=KL[x.k]||KL.news;return x.u?`<a class="row" href="${esc(x.u)}" target="_blank" rel="noopener noreferrer"><span>${esc(x.t)}</span><span class="muted"><span class="fdr ${s[1]}">${s[0]}</span> ${esc(x.s||"")} ${ago(x.d)}</span></a>`:`<div class="row"><span>${esc(x.t)}</span><span class="muted"><span class="fdr ${s[1]}">${s[0]}</span> ${esc(x.s||"")}</span></div>`}).join(""):'<div class="empty">لا توجد أخبار حاليًا.</div>'}
+const load=u=>fetch(u).then(r=>{if(!r.ok)throw 0;return r.json()}).catch(()=>null);
+Promise.all([load("data/transfers-news.json"),load("data/transfers.json")]).then(([n,m])=>{
+ const auto=(n&&n.items||[]).map(x=>({t:x.t,u:x.u,s:x.s,d:x.d,k:x.k}));
+ const man=(Array.isArray(m)?m:[]).filter(x=>x&&x.player).map(x=>({t:`${x.player}: ${x.from||"؟"} ← ${x.to||"؟"}${x.fee?" ("+x.fee+")":""}`,u:"",s:"يدوي",d:x.date,k:x.status==="rumor"?"rumor":"official"}));
+ L=[...man,...auto].sort((a,b)=>Date.parse(b.d||0)-Date.parse(a.d||0));bar();draw()});
 
-// إعادة فحص ملف الانتقالات دوريًا؛ يعتمد ظهور الأخبار الجديدة على تحديث مصدر البيانات نفسه.
-setInterval(()=>{fetch("data/transfers.json?updated="+Date.now(),{cache:"no-store"}).then(r=>r.ok?r.json():[]).then(d=>{L=(Array.isArray(d)?d:[]).filter(x=>x&&x.player).sort((a,b)=>String(b.date).localeCompare(String(a.date)));$("tsub").textContent=L.length?L.length+" خبر":"";draw()}).catch(()=>{})},15*60*1000);
 </script>
-<script src="supabase-config.js"></script><script src="app.js"></script></body>
+</body>
 </html>

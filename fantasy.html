@@ -4,47 +4,96 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#071b16">
-<title>الفانتازي | أدوات وإحصائيات - SNACES FOOTBALL</title>
-<meta name="description" content="أفضل لاعبي فانتازي البريميرليج: النقاط والفورم والقيمة والملكية، وجدول صعوبة المباريات القادمة لكل فريق.">
-<link rel="canonical" href="https://snaceselmasry.github.io/snaces-fantasy/fantasy.html">
-<meta property="og:type" content="website"><meta property="og:title" content="SNACES FOOTBALL | مباريات وتحليل"><meta property="og:description" content="نتائج • ترتيب • هدافين • تحليل مباريات"><meta property="og:image" content="https://snaceselmasry.github.io/snaces-fantasy/Designer.png"><meta name="twitter:card" content="summary_large_image">
+<title>الفانتازي | أفضل اللاعبين وبناء التشكيلة وصعوبة المباريات - SNACES FOOTBALL</title>
+<meta name="description" content="أفضل اللاعبين، ابنِ تشكيلتك بميزانية 100 مليون، وجدول صعوبة المباريات القادمة لكل فريق.">
+<link rel="canonical" href="https://snaceselmasry.github.io/snaces-football/fantasy.html">
+<meta property="og:type" content="website"><meta property="og:title" content="SNACES FOOTBALL | مباريات وتحليل"><meta property="og:description" content="نتائج • ترتيب • هدافين • تحليل مباريات"><meta property="og:image" content="https://snaceselmasry.github.io/snaces-football/Designer.png"><meta name="twitter:card" content="summary_large_image">
 <link rel="icon" type="image/png" href="Designer.png"><link rel="apple-touch-icon" href="Designer.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="style.css?v=3">
 <meta name="google-site-verification" content="0o0Unafgksa2j9W3BSqj4DAp9wnsKM65Yjt0JKPjc30" />
-</head>
+<script src="site.js?v=3"></script></head>
 <body>
-<div class="topbar"><div class="wrap nav"><a class="logo" href="index.html"><img src="Designer.png" alt="" width="38" height="38"><b>SNACES <span>FOOTBALL</span></b></a><div class="links"><a href="index.html">الرئيسية</a><a href="leagues.html">الدوريات</a><a href="cups.html">البطولات</a><a href="match.html">المباريات</a><a href="fantasy.html">الفانتازي</a><a href="squad.html">بناء التشكيلة</a><a href="games.html">الألعاب</a><a href="transfers.html">الانتقالات</a></div><div class="navTools"><button class="iconBtn" id="themeToggle" type="button" aria-label="تغيير المظهر">☀️</button><button class="iconBtn" id="accountBtn" type="button">حسابي</button></div></div></div></div>
+<div class="topbar"><div class="wrap nav"><a class="logo" href="index.html"><img src="Designer.png" alt="" width="38" height="38"><b>SNACES <span>FOOTBALL</span></b></a><div class="links"><a href="index.html">الرئيسية</a><a href="leagues.html">الدوريات</a><a href="cups.html">البطولات</a><a href="fantasy.html">الفانتازي</a><a href="challenges.html">التحديات</a><a href="transfers.html">الانتقالات</a><button id="themeBtn" class="themeBtn" type="button" aria-label="تبديل الوضع الليلي والنهاري">☀️</button></div></div></div>
 <main>
-<section class="section"><div class="wrap"><div class="head"><div><h2>🎮 فانتازي البريميرليج</h2><p id="upd">جاري التحميل...</p></div></div>
-<div class="kpis"><div class="kpi"><small>الجولة</small><strong class="green" id="kGw">—</strong></div><div class="kpi"><small>الموعد النهائي</small><strong id="kDl" style="font-size:16px">—</strong></div><div class="kpi"><small>لاعبين</small><strong id="kPl">—</strong></div><div class="kpi"><small>مشاركون</small><strong id="kTot" style="font-size:18px">—</strong></div></div></div></section>
-<section class="section"><div class="wrap"><div class="head"><div><h2>🔎 اللاعبين</h2></div></div>
+<section class="section"><div class="wrap"><div class="head"><div><h2>🎮 الفانتازي</h2><p id="upd">جاري التحميل...</p></div></div>
+<div class="kpis"><div class="kpi"><small>الجولة</small><strong class="green" id="kGw">—</strong></div><div class="kpi"><small>الموعد النهائي</small><strong id="kDl" style="font-size:16px">—</strong></div><div class="kpi"><small>لاعبين</small><strong id="kPl">—</strong></div><div class="kpi"><small>مشاركون</small><strong id="kTot" style="font-size:18px">—</strong></div></div>
+<div class="cmpBar" id="tabs" style="margin-top:14px"></div><p id="msg" style="min-height:22px;margin:8px 0 0;color:var(--gold)"></p></div></section>
+<section class="section" id="vPlayers"><div class="wrap"><div class="head"><div><h2>🔎 اللاعبين</h2><p>دوس ＋ لإضافة اللاعب لتشكيلتك.</p></div></div>
 <div class="cmpBar" id="posBar"></div>
 <div class="vs" style="margin:12px 0"><input class="control" id="q" placeholder="ابحث عن لاعب..." style="min-width:200px"><select class="control" id="sort"><option value="total_points">الأكثر نقاطًا</option><option value="form">الأفضل فورم</option><option value="value">الأفضل قيمة (نقاط/سعر)</option><option value="selected_by_percent">الأكثر ملكية</option><option value="now_cost">الأغلى سعرًا</option><option value="expected_goals">الأعلى xG</option></select></div>
-<div class="dataPanel"><div class="tableWrap"><table style="min-width:640px"><thead><tr><th>#</th><th>اللاعب</th><th>المركز</th><th>السعر</th><th>نقاط</th><th>فورم</th><th>ملكية</th><th>xG</th><th>قيمة</th></tr></thead><tbody id="rows"></tbody></table></div></div>
+<div class="dataPanel"><div class="tableWrap"><table style="min-width:700px"><thead><tr><th>#</th><th>اللاعب</th><th>المركز</th><th>السعر</th><th>نقاط</th><th>فورم</th><th>ملكية</th><th>xG</th><th>قيمة</th><th></th></tr></thead><tbody id="rows"></tbody></table></div></div>
 <p style="margin-top:12px"><button class="btn secondary" id="more">عرض المزيد</button></p></div></section>
-<section class="section"><div class="wrap"><div class="head"><div><h2>📅 صعوبة المباريات القادمة</h2><p>الأسهل أولًا. 1 سهل جدًا و5 صعب جدًا.</p></div></div><div class="dataPanel"><div class="tableWrap"><table style="min-width:520px"><thead><tr><th>الفريق</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th></tr></thead><tbody id="fdr"></tbody></table></div></div>
-<div class="disclaimer" style="margin-top:14px">البيانات من واجهة الفانتازي الرسمية للبريميرليج وتتحدّث كل بضع ساعات. الموقع مستقل وغير تابع للدوري.</div></div></section>
+<section class="section" id="vSquad" style="display:none"><div class="wrap"><div class="head"><div><h2>🧩 تشكيلتي</h2><p>15 لاعب، ميزانية £100م، وبحد أقصى 3 لاعبين من نفس النادي. دوس على أي خانة.</p></div></div>
+<div class="kpis" id="sk"></div>
+<div class="vs" style="margin:12px 0"><select class="control" id="form"></select><button class="btn primary" id="auto">بناء تلقائي</button><button class="btn secondary" id="copy">نسخ التشكيلة</button><button class="btn secondary" id="clear">مسح</button></div>
+<div class="sq" id="pitch"></div><div class="bench"><small class="muted">البدلاء</small><div class="sqRow" id="bench" style="margin-top:8px"></div></div>
+<div class="disclaimer" style="margin-top:14px">النقاط المعروضة نقاط الموسم الحالي للاعبين (مؤشر على المستوى)، مش توقع للجولة الجاية. تشكيلتك بتتحفظ على جهازك.</div></div></section>
+<section class="section" id="vFdr" style="display:none"><div class="wrap"><div class="head"><div><h2>📅 صعوبة المباريات القادمة</h2><p>الأسهل أولًا. 1 سهل جدًا و5 صعب جدًا.</p></div></div><div class="dataPanel"><div class="tableWrap"><table style="min-width:520px"><thead><tr><th>الفريق</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th></tr></thead><tbody id="fdr"></tbody></table></div></div></div></section>
+<div class="wrap"><div class="disclaimer" style="margin-bottom:10px">البيانات من واجهة الفانتازي الرسمية للبريميرليج وتتحدّث كل بضع ساعات. الموقع مستقل وغير تابع للدوري.</div></div>
+<div class="modal" id="pk"><div id="pkBox"></div></div>
 </main>
 <footer><div class="wrap">© 2026 SNACES FOOTBALL. موقع مستقل وغير تابع لأي دوري أو نادٍ.</div></footer>
 <script>
 const $=id=>document.getElementById(id),esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
-const POS={1:"حارس",2:"مدافع",3:"وسط",4:"مهاجم"};
-let F=null,pos=0,shown=30;const T={};
+const POS={1:"حارس",2:"مدافع",3:"وسط",4:"مهاجم"},CAP={1:2,2:5,3:5,4:3},BUDGET=1000;
+const FORMS={"4-4-2":[4,4,2],"4-3-3":[4,3,3],"3-5-2":[3,5,2],"3-4-3":[3,4,3],"4-5-1":[4,5,1],"5-3-2":[5,3,2],"5-4-1":[5,4,1]};
+let F=null,view="players",pos=0,shown=30,pick=null,S=null;const T={},P={};
+const blank=()=>({1:[null,null],2:[null,null,null,null,null],3:[null,null,null,null,null],4:[null,null,null]});
 const val=p=>p.now_cost?p.total_points/(p.now_cost/10):0;
 const K={total_points:p=>p.total_points,form:p=>+p.form,value:val,selected_by_percent:p=>+p.selected_by_percent,now_cost:p=>p.now_cost,expected_goals:p=>+p.expected_goals};
+function loadS(){try{const s=JSON.parse(localStorage.getItem("snaces_squad")||"null");if(s&&s.sq){const b=blank();for(const t in b)for(let i=0;i<b[t].length;i++){const id=(s.sq[t]||[])[i];b[t][i]=P[id]?id:null}return{sq:b,form:FORMS[s.form]?s.form:"4-4-2",cap:P[s.cap]?s.cap:null}}}catch(e){}return{sq:blank(),form:"4-4-2",cap:null}}
+const save=()=>{try{localStorage.setItem("snaces_squad",JSON.stringify(S))}catch(e){}};
+const msg=t=>{$("msg").textContent=t;clearTimeout(msg.t);msg.t=setTimeout(()=>{$("msg").textContent=""},4000)};
+const ids=()=>[1,2,3,4].flatMap(t=>S.sq[t]).filter(Boolean);
+const cost=()=>ids().reduce((s,id)=>s+P[id].now_cost,0);
+const nStart=t=>t===1?1:FORMS[S.form][t-2];
+const starters=()=>[1,2,3,4].flatMap(t=>S.sq[t].slice(0,nStart(t))).filter(Boolean);
+function canAdd(p,ex){if(ids().includes(p.id)&&p.id!==ex)return"موجود بالفعل";if(cost()-(ex?P[ex].now_cost:0)+p.now_cost>BUDGET)return"فوق الميزانية";if(ids().filter(id=>id!==ex&&P[id].team===p.team).length>=3)return"3 لاعبين من نفس النادي";return""}
+function tabs(){$("tabs").innerHTML=[["players","اللاعبين"],["squad","تشكيلتي"],["fdr","صعوبة المباريات"]].map(([k,n])=>`<button class="btn ${k===view?"primary":"secondary"}" data-v="${k}">${n}</button>`).join("");$("tabs").querySelectorAll("button").forEach(b=>b.onclick=()=>{view=b.dataset.v;$("vPlayers").style.display=view==="players"?"":"none";$("vSquad").style.display=view==="squad"?"":"none";$("vFdr").style.display=view==="fdr"?"":"none";tabs();if(view==="squad")squad()})}
 function bar(){$("posBar").innerHTML=[[0,"الكل"],[1,"حراس"],[2,"مدافعين"],[3,"وسط"],[4,"مهاجمين"]].map(([k,n])=>`<button class="btn ${k===pos?"primary":"secondary"}" data-p="${k}">${n}</button>`).join("");$("posBar").querySelectorAll("button").forEach(b=>b.onclick=()=>{pos=+b.dataset.p;shown=30;bar();players()})}
 function players(){const q=$("q").value.trim().toLowerCase(),f=K[$("sort").value]||K.total_points;
  const l=F.elements.filter(p=>(!pos||p.element_type===pos)&&(!q||(p.web_name+" "+p.first_name+" "+p.second_name).toLowerCase().includes(q))).sort((a,b)=>f(b)-f(a));
- $("rows").innerHTML=l.slice(0,shown).map((p,i)=>{const t=T[p.team]||{},hurt=p.status!=="a";return `<tr><td>${i+1}</td><td><b>${esc(p.web_name)}</b>${hurt?' <span title="غير متاح أو مشكوك فيه" style="color:var(--gold)">⚠</span>':""} <small class="muted">${esc(t.short_name||"")}</small></td><td>${POS[p.element_type]||""}</td><td>£${(p.now_cost/10).toFixed(1)}</td><td><b>${p.total_points}</b></td><td>${p.form}</td><td>${p.selected_by_percent}%</td><td>${(+p.expected_goals).toFixed(1)}</td><td>${val(p).toFixed(1)}</td></tr>`}).join("")||'<tr><td colspan="9" class="empty">لا نتائج.</td></tr>';
+ $("rows").innerHTML=l.slice(0,shown).map((p,i)=>{const t=T[p.team]||{},hurt=p.status!=="a";return `<tr><td>${i+1}</td><td><b>${esc(p.web_name)}</b>${hurt?' <span title="غير متاح أو مشكوك فيه" style="color:var(--gold)">⚠</span>':""} <small class="muted">${esc(t.short_name||"")}</small></td><td>${POS[p.element_type]||""}</td><td>£${(p.now_cost/10).toFixed(1)}</td><td><b>${p.total_points}</b></td><td>${p.form}</td><td>${p.selected_by_percent}%</td><td>${(+p.expected_goals).toFixed(1)}</td><td>${val(p).toFixed(1)}</td><td><button class="btn secondary" data-add="${p.id}" style="padding:3px 10px">＋</button></td></tr>`}).join("")||'<tr><td colspan="10" class="empty">لا نتائج.</td></tr>';
  $("more").style.display=l.length>shown?"":"none"}
+function add(id){const p=P[id],t=p.element_type,i=S.sq[t].indexOf(null);if(i<0){msg("مركز "+POS[t]+" مكتمل، احذف لاعب من تشكيلتك الأول");return}const w=canAdd(p,null);if(w){msg(p.web_name+": "+w);return}S.sq[t][i]=id;save();msg("اتضاف "+p.web_name+" ✓ ("+ids().length+"/15)")}
+function slot(t,i){const id=S.sq[t][i];if(!id)return `<div class="slot" data-t="${t}" data-i="${i}"><b>＋</b><span>${POS[t]}</span></div>`;const p=P[id];return `<div class="slot has${id===S.cap?" cap":""}" data-t="${t}" data-i="${i}"><b>${esc(p.web_name)}${id===S.cap?" ©":""}</b><span>${esc((T[p.team]||{}).short_name||"")}</span><span>£${(p.now_cost/10).toFixed(1)}</span></div>`}
+function squad(){const st=starters();if(!st.includes(S.cap))S.cap=st.length?st.slice().sort((a,b)=>P[b].total_points-P[a].total_points)[0]:null;
+ $("pitch").innerHTML=[4,3,2,1].map(t=>`<div class="sqRow">${Array.from({length:nStart(t)},(_,i)=>slot(t,i)).join("")}</div>`).join("");
+ $("bench").innerHTML=[1,2,3,4].map(t=>Array.from({length:CAP[t]-nStart(t)},(_,k)=>slot(t,nStart(t)+k)).join("")).join("");
+ const pts=st.reduce((s,id)=>s+P[id].total_points,0)+(S.cap?P[S.cap].total_points:0),c=cost();
+ $("sk").innerHTML=`<div class="kpi"><small>اللاعبين</small><strong class="green">${ids().length}/15</strong></div><div class="kpi"><small>القيمة</small><strong>£${(c/10).toFixed(1)}</strong></div><div class="kpi"><small>المتبقي</small><strong>£${((BUDGET-c)/10).toFixed(1)}</strong></div><div class="kpi"><small>نقاط الأساسيين (الكابتن ×2)</small><strong>${pts}</strong></div>`;
+ $("form").innerHTML=Object.keys(FORMS).map(k=>`<option value="${k}"${k===S.form?" selected":""}>${k}</option>`).join("");save()}
+function closePick(){$("pk").classList.remove("open");pick=null}
+function pkList(){const {t,i}=pick,cur=S.sq[t][i],q=pick.q.toLowerCase(),f=pick.sort==="now_cost"?p=>p.now_cost:pick.sort==="value"?val:p=>p.total_points;
+ const l=F.elements.filter(p=>p.element_type===t&&(!q||(p.web_name+" "+p.second_name).toLowerCase().includes(q))).sort((a,b)=>f(b)-f(a)).slice(0,40);
+ $("pkList").innerHTML=l.map(p=>{const w=canAdd(p,cur);return `<div class="pk${w?" off":""}" data-id="${p.id}"><span><b>${esc(p.web_name)}</b> <small class="muted">${esc((T[p.team]||{}).short_name||"")}</small>${w?` <small style="color:var(--gold)">${w}</small>`:""}</span><span>£${(p.now_cost/10).toFixed(1)} • ${p.total_points} نقطة</span></div>`}).join("")||'<div class="empty">لا نتائج</div>';
+ $("pkList").querySelectorAll(".pk").forEach(el=>el.onclick=()=>choose(+el.dataset.id))}
+function choose(id){const {t,i}=pick,p=P[id],w=canAdd(p,S.sq[t][i]);if(w){msg(w);return}S.sq[t][i]=id;save();closePick();squad()}
+function openPick(t,i){pick={t,i,q:"",sort:"total_points"};const cur=S.sq[t][i];
+ $("pkBox").innerHTML=`<div class="head" style="margin-bottom:8px"><h3 style="margin:0">اختر ${POS[t]}</h3><button class="btn secondary" id="pkClose">إغلاق</button></div>${cur?'<p><button class="btn secondary" id="pkCap">كابتن ©</button> <button class="btn secondary" id="pkDel">حذف اللاعب</button></p>':""}<input class="control" id="pkQ" placeholder="ابحث..." style="width:100%;margin-bottom:8px"><select class="control" id="pkS" style="margin-bottom:8px"><option value="total_points">الأكثر نقاطًا</option><option value="value">الأفضل قيمة</option><option value="now_cost">الأغلى</option></select><div id="pkList"></div>`;
+ $("pkClose").onclick=closePick;
+ if(cur){$("pkCap").onclick=()=>{if(i<nStart(t)){S.cap=cur;save();closePick();squad()}else msg("الكابتن لازم يكون من الأساسيين")};$("pkDel").onclick=()=>{S.sq[t][i]=null;save();closePick();squad()}}
+ $("pkQ").oninput=()=>{pick.q=$("pkQ").value;pkList()};$("pkS").onchange=()=>{pick.sort=$("pkS").value;pkList()};pkList();$("pk").classList.add("open")}
+function auto(){const q={1:2,2:5,3:5,4:3},ch={1:[],2:[],3:[],4:[]},club={};let c=0;const minc={};
+ [1,2,3,4].forEach(t=>minc[t]=Math.min(...F.elements.filter(p=>p.element_type===t&&p.minutes>0).map(p=>p.now_cost)));
+ const need=()=>[1,2,3,4].reduce((s,t)=>s+(q[t]-ch[t].length)*minc[t],0);
+ for(const p of F.elements.filter(p=>p.status==="a").sort((a,b)=>b.total_points-a.total_points)){const t=p.element_type;if(ch[t].length>=q[t]||(club[p.team]||0)>=3)continue;if(BUDGET-c-p.now_cost<need()-minc[t])continue;ch[t].push(p.id);club[p.team]=(club[p.team]||0)+1;c+=p.now_cost}
+ S.sq=blank();[1,2,3,4].forEach(t=>ch[t].forEach((id,i)=>{S.sq[t][i]=id}));S.cap=null;squad();msg("تم البناء التلقائي: أفضل نقاط الموسم ضمن الميزانية")}
+function copy(){const row=t=>S.sq[t].slice(0,nStart(t)).map(id=>id?P[id].web_name+(id===S.cap?" (C)":""):"—").join(" • ");
+ const txt=`SNACES FOOTBALL — تشكيلتي (${S.form})\n${[4,3,2,1].map(row).join("\n")}\nالبدلاء: ${[1,2,3,4].flatMap(t=>S.sq[t].slice(nStart(t))).map(id=>id?P[id].web_name:"—").join(" • ")}\nالقيمة: £${(cost()/10).toFixed(1)}`;
+ try{navigator.clipboard.writeText(txt).then(()=>msg("اتنسخت ✓"))}catch(e){msg(txt)}}
 function fdr(){const ev=F.events.find(e=>e.is_next)||F.events.find(e=>e.is_current)||{id:1},rows=F.teams.map(t=>{const fx=F.fixtures.filter(f=>f.event&&f.event>=ev.id&&(f.team_h===t.id||f.team_a===t.id)).sort((a,b)=>a.event-b.event).slice(0,5).map(f=>{const h=f.team_h===t.id,o=T[h?f.team_a:f.team_h]||{};return{n:o.short_name||"?",h,d:h?f.team_h_difficulty:f.team_a_difficulty}});const avg=fx.length?fx.reduce((s,x)=>s+x.d,0)/fx.length:9;return{t,fx,avg}}).sort((a,b)=>a.avg-b.avg);
  $("fdr").innerHTML=rows.map(r=>`<tr><td><b>${esc(r.t.name)}</b></td>${[0,1,2,3,4].map(i=>{const x=r.fx[i];return x?`<td><span class="fdr fdr${x.d}" style="display:inline-block;min-width:54px;text-align:center">${esc(x.n)} ${x.h?"(H)":"(A)"}</span></td>`:"<td>—</td>"}).join("")}</tr>`).join("")}
 function init(){const cur=F.events.find(e=>e.is_current)||F.events.find(e=>e.is_next),nx=F.events.find(e=>e.is_next);
  $("kGw").textContent=cur?cur.id:"—";$("kDl").textContent=nx&&nx.deadline_time?new Date(nx.deadline_time).toLocaleString("ar-EG",{weekday:"short",day:"numeric",month:"short",hour:"2-digit",minute:"2-digit"}):"—";$("kPl").textContent=F.elements.length;$("kTot").textContent=F.total_players?Number(F.total_players).toLocaleString("ar-EG"):"—";
- bar();players();fdr();$("q").oninput=()=>{shown=30;players()};$("sort").onchange=()=>{shown=30;players()};$("more").onclick=()=>{shown+=30;players()}}
-fetch("data/fpl.json").then(r=>{if(!r.ok)throw 0;return r.json()}).then(d=>{F=d;d.teams.forEach(t=>T[t.id]=t);init();fetch("data/meta.json").then(r=>r.json()).then(m=>{$("upd").textContent="آخر تحديث للبيانات: "+new Date(m.updated).toLocaleString("ar-EG")}).catch(()=>{$("upd").textContent=""})}).catch(()=>{$("upd").textContent="";document.querySelector("main").innerHTML='<section class="section"><div class="wrap"><div class="dataPanel" style="padding:20px"><p class="muted">بيانات الفانتازي مش متاحة حاليًا. حاول بعد شوية.</p></div></div></section>'});
+ S=loadS();tabs();bar();players();fdr();$("q").oninput=()=>{shown=30;players()};$("sort").onchange=()=>{shown=30;players()};$("more").onclick=()=>{shown+=30;players()};
+ $("rows").onclick=e=>{const id=e.target&&e.target.dataset&&e.target.dataset.add;if(id)add(+id)};
+ $("vSquad").onclick=e=>{const s=e.target&&e.target.closest&&e.target.closest(".slot");if(s)openPick(+s.dataset.t,+s.dataset.i)};
+ $("form").onchange=()=>{S.form=$("form").value;squad()};$("auto").onclick=auto;$("copy").onclick=copy;$("clear").onclick=()=>{S.sq=blank();S.cap=null;squad();msg("اتمسحت التشكيلة")};
+ $("pk").onclick=e=>{if(e.target===$("pk"))closePick()}}
+fetch("data/fpl.json").then(r=>{if(!r.ok)throw 0;return r.json()}).then(d=>{F=d;d.teams.forEach(t=>T[t.id]=t);d.elements.forEach(p=>P[p.id]=p);init();fetch("data/meta.json").then(r=>r.json()).then(m=>{$("upd").textContent="آخر تحديث للبيانات: "+new Date(m.updated).toLocaleString("ar-EG")}).catch(()=>{$("upd").textContent=""})}).catch(()=>{$("upd").textContent="";document.querySelector("main").innerHTML='<section class="section"><div class="wrap"><div class="dataPanel" style="padding:20px"><p class="muted">بيانات الفانتازي مش متاحة حاليًا. حاول بعد شوية.</p></div></div></section>'});
 
 </script>
-<script src="supabase-config.js"></script><script src="app.js"></script></body>
+</body>
 </html>
