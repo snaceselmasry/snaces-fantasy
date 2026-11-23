@@ -14,7 +14,7 @@
 <meta name="google-site-verification" content="0o0Unafgksa2j9W3BSqj4DAp9wnsKM65Yjt0JKPjc30" />
 </head>
 <body>
-<div class="topbar"><div class="wrap nav"><a class="logo" href="index.html"><img src="Designer.png" alt="" width="38" height="38"><b>SNACES <span>FOOTBALL</span></b></a><div class="links"><a href="index.html">الرئيسية</a><a href="leagues.html">الدوريات</a><a href="cups.html">البطولات</a><a href="fantasy.html">الفانتازي</a><a href="challenges.html">التحديات</a><a href="transfers.html">الانتقالات</a></div></div></div>
+<div class="topbar"><div class="wrap nav"><a class="logo" href="index.html"><img src="Designer.png" alt="" width="38" height="38"><b>SNACES <span>FOOTBALL</span></b></a><div class="links"><a href="index.html">الرئيسية</a><a href="leagues.html">الدوريات</a><a href="cups.html">البطولات</a><a href="match.html">المباريات</a><a href="fantasy.html">الفانتازي</a><a href="squad.html">بناء التشكيلة</a><a href="games.html">الألعاب</a><a href="transfers.html">الانتقالات</a></div><div class="navTools"><button class="iconBtn" id="themeToggle" type="button" aria-label="تغيير المظهر">☀️</button><button class="iconBtn" id="accountBtn" type="button">حسابي</button></div></div></div></div>
 <main><section class="section"><div class="wrap"><div class="head"><div><h2>🔁 الانتقالات</h2><p id="tsub"></p></div><div class="cmpBar" id="tf"></div></div><div class="fxGrid" id="list"></div>
 <div class="disclaimer" style="margin-top:14px">الانتقالات بتتضاف يدويًا، فمش بالضرورة تكون لايف. الأخبار غير الرسمية (شائعات) متعلّمة بوضوح.</div></div></section></main>
 <footer><div class="wrap">© 2026 SNACES FOOTBALL. موقع مستقل وغير تابع لأي دوري أو نادٍ.</div></footer>
@@ -24,8 +24,10 @@ let L=[],f="all";
 const ST={official:["رسمي","fdr1"],rumor:["شائعة","fdr3"]};
 function bar(){$("tf").innerHTML=[["all","الكل"],["official","رسمي"],["rumor","شائعات"]].map(([k,n])=>`<button class="btn ${k===f?"primary":"secondary"}" data-f="${k}">${n}</button>`).join("");$("tf").querySelectorAll("button").forEach(b=>b.onclick=()=>{f=b.dataset.f;bar();draw()})}
 function draw(){const l=L.filter(x=>f==="all"||x.status===f);$("list").innerHTML=l.length?l.map(x=>{const s=ST[x.status]||ST.official;return `<div class="fx"><span><b>${esc(x.player)}</b> ‹ ${esc(x.from||"؟")} ← ${esc(x.to||"؟")}${x.fee?` • ${esc(x.fee)}`:""}</span><span class="muted"><span class="fdr ${s[1]}">${s[0]}</span> ${esc(x.date||"")}</span></div>`}).join(""):'<div class="muted">لا توجد انتقالات حاليًا.</div>'}
-fetch("data/transfers.json").then(r=>{if(!r.ok)throw 0;return r.json()}).then(d=>{L=(Array.isArray(d)?d:[]).filter(x=>x&&x.player).sort((a,b)=>String(b.date).localeCompare(String(a.date)));$("tsub").textContent=L.length?L.length+" خبر":"";bar();draw()}).catch(()=>{bar();draw()});
+fetch("data/transfers.json?updated="+Date.now(),{cache:"no-store"}).then(r=>{if(!r.ok)throw 0;return r.json()}).then(d=>{L=(Array.isArray(d)?d:[]).filter(x=>x&&x.player).sort((a,b)=>String(b.date).localeCompare(String(a.date)));$("tsub").textContent=L.length?L.length+" خبر":"";bar();draw()}).catch(()=>{bar();draw()});
 
+// إعادة فحص ملف الانتقالات دوريًا؛ يعتمد ظهور الأخبار الجديدة على تحديث مصدر البيانات نفسه.
+setInterval(()=>{fetch("data/transfers.json?updated="+Date.now(),{cache:"no-store"}).then(r=>r.ok?r.json():[]).then(d=>{L=(Array.isArray(d)?d:[]).filter(x=>x&&x.player).sort((a,b)=>String(b.date).localeCompare(String(a.date)));$("tsub").textContent=L.length?L.length+" خبر":"";draw()}).catch(()=>{})},15*60*1000);
 </script>
-</body>
+<script src="supabase-config.js"></script><script src="app.js"></script></body>
 </html>

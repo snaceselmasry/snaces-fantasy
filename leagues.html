@@ -14,7 +14,7 @@
 <meta name="google-site-verification" content="0o0Unafgksa2j9W3BSqj4DAp9wnsKM65Yjt0JKPjc30" />
 </head>
 <body>
-<div class="topbar"><div class="wrap nav"><a class="logo" href="index.html"><img src="Designer.png" alt="" width="38" height="38"><b>SNACES <span>FOOTBALL</span></b></a><div class="links"><a href="index.html">الرئيسية</a><a href="leagues.html">الدوريات</a><a href="cups.html">البطولات</a><a href="fantasy.html">الفانتازي</a><a href="challenges.html">التحديات</a><a href="transfers.html">الانتقالات</a></div></div></div>
+<div class="topbar"><div class="wrap nav"><a class="logo" href="index.html"><img src="Designer.png" alt="" width="38" height="38"><b>SNACES <span>FOOTBALL</span></b></a><div class="links"><a href="index.html">الرئيسية</a><a href="leagues.html">الدوريات</a><a href="cups.html">البطولات</a><a href="match.html">المباريات</a><a href="fantasy.html">الفانتازي</a><a href="squad.html">بناء التشكيلة</a><a href="games.html">الألعاب</a><a href="transfers.html">الانتقالات</a></div><div class="navTools"><button class="iconBtn" id="themeToggle" type="button" aria-label="تغيير المظهر">☀️</button><button class="iconBtn" id="accountBtn" type="button">حسابي</button></div></div></div></div>
 <main>
 <div class="wrap hero"><div class="heroGrid"><div><div class="eyebrow">MATCHES • TABLES • ANALYSIS</div><h1>تابع الكورة<br><span>بالأرقام.</span></h1><p>نتائج ومواعيد وترتيب الدوريات الخمسة الكبرى، مع الهدافين وتحليل وتوقع أي مباراة اعتمادًا على نتائج الموسم.</p><div class="actions"><a class="btn primary" href="#matches">المباريات</a><a class="btn secondary" href="#analysis">حلل مباراة</a></div></div><div class="heroVisual"><img class="heroLogo" src="Designer.png" alt="SNACES" width="340" height="340" fetchpriority="high"></div></div></div>
 <section class="section"><div class="wrap"><div class="head"><div><h2>اختر البطولة</h2><p id="updated">جاري التحميل...</p></div></div><div class="cmpBar" id="tabs"></div><div class="kpis" style="margin-top:12px"><div class="kpi"><small>الجولة الحالية</small><strong class="green" id="kRound">—</strong></div><div class="kpi"><small>عدد الفرق</small><strong id="kTeams">—</strong></div><div class="kpi"><small>مباريات منتهية</small><strong id="kDone">—</strong></div><div class="kpi"><small>أهداف / مباراة</small><strong id="kGoals">—</strong></div></div><p class="muted" id="note" style="font-size:12px"></p></div></section>
@@ -69,5 +69,5 @@ $("go").onclick=()=>{const a=+$("t1").value,b=+$("t2").value,el=$("anaOut"),S=D&
 (async()=>{try{const m=await (await fetch("data/meta.json")).json();$("updated").textContent="آخر تحديث للبيانات: "+new Date(m.updated).toLocaleString("ar-EG")}catch(e){$("updated").textContent="البيانات بتتحدّث تلقائيًا كل بضع ساعات."}})();
 load();
 </script>
-</body>
+<script src="supabase-config.js"></script><script src="app.js"></script></body>
 </html>

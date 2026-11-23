@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://snaceselmasry.github.io/snaces-fantasy/</loc><lastmod>2026-11-22</lastmod></url>
-  <url><loc>https://snaceselmasry.github.io/snaces-fantasy/leagues.html</loc><lastmod>2026-11-22</lastmod></url>
-  <url><loc>https://snaceselmasry.github.io/snaces-fantasy/cups.html</loc><lastmod>2026-11-22</lastmod></url>
-  <url><loc>https://snaceselmasry.github.io/snaces-fantasy/fantasy.html</loc><lastmod>2026-11-22</lastmod></url>
-  <url><loc>https://snaceselmasry.github.io/snaces-fantasy/challenges.html</loc><lastmod>2026-11-22</lastmod></url>
-  <url><loc>https://snaceselmasry.github.io/snaces-fantasy/transfers.html</loc><lastmod>2026-11-22</lastmod></url>
+<url><loc>https://snaceselmasry.github.io/snaces-fantasy/index.html</loc></url>
+<url><loc>https://snaceselmasry.github.io/snaces-fantasy/leagues.html</loc></url>
+<url><loc>https://snaceselmasry.github.io/snaces-fantasy/match.html</loc></url>
+<url><loc>https://snaceselmasry.github.io/snaces-fantasy/cups.html</loc></url>
+<url><loc>https://snaceselmasry.github.io/snaces-fantasy/fantasy.html</loc></url>
+<url><loc>https://snaceselmasry.github.io/snaces-fantasy/squad.html</loc></url>
+<url><loc>https://snaceselmasry.github.io/snaces-fantasy/games.html</loc></url>
+<url><loc>https://snaceselmasry.github.io/snaces-fantasy/challenges.html</loc></url>
+<url><loc>https://snaceselmasry.github.io/snaces-fantasy/transfers.html</loc></url>
 </urlset>

@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#071b16">
-<title>فانتازي البريميرليج | أفضل اللاعبين وصعوبة المباريات - SNACES FOOTBALL</title>
+<title>الفانتازي | أدوات وإحصائيات - SNACES FOOTBALL</title>
 <meta name="description" content="أفضل لاعبي فانتازي البريميرليج: النقاط والفورم والقيمة والملكية، وجدول صعوبة المباريات القادمة لكل فريق.">
 <link rel="canonical" href="https://snaceselmasry.github.io/snaces-fantasy/fantasy.html">
 <meta property="og:type" content="website"><meta property="og:title" content="SNACES FOOTBALL | مباريات وتحليل"><meta property="og:description" content="نتائج • ترتيب • هدافين • تحليل مباريات"><meta property="og:image" content="https://snaceselmasry.github.io/snaces-fantasy/Designer.png"><meta name="twitter:card" content="summary_large_image">
@@ -14,7 +14,7 @@
 <meta name="google-site-verification" content="0o0Unafgksa2j9W3BSqj4DAp9wnsKM65Yjt0JKPjc30" />
 </head>
 <body>
-<div class="topbar"><div class="wrap nav"><a class="logo" href="index.html"><img src="Designer.png" alt="" width="38" height="38"><b>SNACES <span>FOOTBALL</span></b></a><div class="links"><a href="index.html">الرئيسية</a><a href="leagues.html">الدوريات</a><a href="cups.html">البطولات</a><a href="fantasy.html">الفانتازي</a><a href="challenges.html">التحديات</a><a href="transfers.html">الانتقالات</a></div></div></div>
+<div class="topbar"><div class="wrap nav"><a class="logo" href="index.html"><img src="Designer.png" alt="" width="38" height="38"><b>SNACES <span>FOOTBALL</span></b></a><div class="links"><a href="index.html">الرئيسية</a><a href="leagues.html">الدوريات</a><a href="cups.html">البطولات</a><a href="match.html">المباريات</a><a href="fantasy.html">الفانتازي</a><a href="squad.html">بناء التشكيلة</a><a href="games.html">الألعاب</a><a href="transfers.html">الانتقالات</a></div><div class="navTools"><button class="iconBtn" id="themeToggle" type="button" aria-label="تغيير المظهر">☀️</button><button class="iconBtn" id="accountBtn" type="button">حسابي</button></div></div></div></div>
 <main>
 <section class="section"><div class="wrap"><div class="head"><div><h2>🎮 فانتازي البريميرليج</h2><p id="upd">جاري التحميل...</p></div></div>
 <div class="kpis"><div class="kpi"><small>الجولة</small><strong class="green" id="kGw">—</strong></div><div class="kpi"><small>الموعد النهائي</small><strong id="kDl" style="font-size:16px">—</strong></div><div class="kpi"><small>لاعبين</small><strong id="kPl">—</strong></div><div class="kpi"><small>مشاركون</small><strong id="kTot" style="font-size:18px">—</strong></div></div></div></section>
@@ -46,5 +46,5 @@ function init(){const cur=F.events.find(e=>e.is_current)||F.events.find(e=>e.is_
 fetch("data/fpl.json").then(r=>{if(!r.ok)throw 0;return r.json()}).then(d=>{F=d;d.teams.forEach(t=>T[t.id]=t);init();fetch("data/meta.json").then(r=>r.json()).then(m=>{$("upd").textContent="آخر تحديث للبيانات: "+new Date(m.updated).toLocaleString("ar-EG")}).catch(()=>{$("upd").textContent=""})}).catch(()=>{$("upd").textContent="";document.querySelector("main").innerHTML='<section class="section"><div class="wrap"><div class="dataPanel" style="padding:20px"><p class="muted">بيانات الفانتازي مش متاحة حاليًا. حاول بعد شوية.</p></div></div></section>'});
 
 </script>
-</body>
+<script src="supabase-config.js"></script><script src="app.js"></script></body>
 </html>
