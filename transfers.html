@@ -16,7 +16,7 @@
 <body>
 <div class="topbar"><div class="wrap nav"><a class="logo" href="index.html"><img src="Designer.png" alt="" width="38" height="38"><b>SNACES <span>FOOTBALL</span></b></a><div class="links"><a href="index.html">الرئيسية</a><a href="leagues.html">الدوريات</a><a href="cups.html">البطولات</a><a href="fantasy.html">الفانتازي</a><a href="challenges.html">التحديات</a><a href="transfers.html">الانتقالات</a><button id="themeBtn" class="themeBtn" type="button" aria-label="تبديل الوضع الليلي والنهاري">☀️</button></div></div></div>
 <main><section class="section"><div class="wrap"><div class="head"><div><h2>🔁 الانتقالات</h2><p id="tsub">أخبار وشائعات الانتقالات، بتتحدث تلقائيًا كل بضع ساعات.</p></div><div class="cmpBar" id="tf"></div></div><div class="dataPanel" id="list"><div class="empty">جاري التحميل...</div></div>
-<div class="disclaimer" style="margin-top:14px">الأخبار بتتجمع تلقائيًا من مصادر صحفية (Sky Sports وBBC Sport وThe Guardian)، وبنعرض العنوان والرابط بس. التصنيف (رسمي / شائعة) آلي حسب كلمات العنوان وممكن يغلط، افتح الرابط للتفاصيل. العناوين بالإنجليزية.</div></div></section></main>
+<div class="disclaimer" style="margin-top:14px">الأخبار بتتجمع تلقائيًا من مصادر صحفية (Sky Sports وBBC Sport وThe Guardian)، وبنعرض العنوان والرابط بس. التصنيف (رسمي / شائعة) آلي حسب كلمات العنوان وممكن يغلط، افتح الرابط للتفاصيل. العناوين مترجمة آليًا من الإنجليزية (ممكن تغلط في أسماء اللاعبين والأندية)، والعنوان الأصلي ظاهر تحت كل خبر.</div></div></section></main>
 <footer><div class="wrap">© 2026 SNACES FOOTBALL. موقع مستقل وغير تابع لأي دوري أو نادٍ.</div></footer>
 <script>
 const $=id=>document.getElementById(id),esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
@@ -24,10 +24,10 @@ let L=[],f="all";
 const KL={official:["رسمي","fdr1"],rumor:["شائعة","fdr3"],news:["خبر","fdr3"]};
 const ago=d=>{if(!d)return"";const m=Math.max(1,Math.round((Date.now()-Date.parse(d))/60000));return m<60?`منذ ${m} د`:m<1440?`منذ ${Math.round(m/60)} س`:`منذ ${Math.round(m/1440)} يوم`};
 function bar(){$("tf").innerHTML=[["all","الكل"],["official","رسمي"],["rumor","شائعات"],["news","أخبار"]].map(([k,n])=>`<button class="btn ${k===f?"primary":"secondary"}" data-f="${k}">${n}</button>`).join("");$("tf").querySelectorAll("button").forEach(b=>b.onclick=()=>{f=b.dataset.f;bar();draw()})}
-function draw(){const l=L.filter(x=>f==="all"||x.k===f);$("list").innerHTML=l.length?l.map(x=>{const s=KL[x.k]||KL.news;return x.u?`<a class="row" href="${esc(x.u)}" target="_blank" rel="noopener noreferrer"><span>${esc(x.t)}</span><span class="muted"><span class="fdr ${s[1]}">${s[0]}</span> ${esc(x.s||"")} ${ago(x.d)}</span></a>`:`<div class="row"><span>${esc(x.t)}</span><span class="muted"><span class="fdr ${s[1]}">${s[0]}</span> ${esc(x.s||"")}</span></div>`}).join(""):'<div class="empty">لا توجد أخبار حاليًا.</div>'}
+function draw(){const l=L.filter(x=>f==="all"||x.k===f);$("list").innerHTML=l.length?l.map(x=>{const s=KL[x.k]||KL.news;return x.u?`<a class="row" href="${esc(x.u)}" target="_blank" rel="noopener noreferrer"><span>${esc(x.ar||x.t)}${x.ar?`<br><small class="muted" dir="ltr" style="display:block;text-align:left">${esc(x.t)}</small>`:""}</span><span class="muted"><span class="fdr ${s[1]}">${s[0]}</span> ${esc(x.s||"")} ${ago(x.d)}</span></a>`:`<div class="row"><span>${esc(x.t)}</span><span class="muted"><span class="fdr ${s[1]}">${s[0]}</span> ${esc(x.s||"")}</span></div>`}).join(""):'<div class="empty">لا توجد أخبار حاليًا.</div>'}
 const load=u=>fetch(u).then(r=>{if(!r.ok)throw 0;return r.json()}).catch(()=>null);
 Promise.all([load("data/transfers-news.json"),load("data/transfers.json")]).then(([n,m])=>{
- const auto=(n&&n.items||[]).map(x=>({t:x.t,u:x.u,s:x.s,d:x.d,k:x.k}));
+ const auto=(n&&n.items||[]).map(x=>({t:x.t,ar:x.ar,u:x.u,s:x.s,d:x.d,k:x.k}));
  const man=(Array.isArray(m)?m:[]).filter(x=>x&&x.player).map(x=>({t:`${x.player}: ${x.from||"؟"} ← ${x.to||"؟"}${x.fee?" ("+x.fee+")":""}`,u:"",s:"يدوي",d:x.date,k:x.status==="rumor"?"rumor":"official"}));
  L=[...man,...auto].sort((a,b)=>Date.parse(b.d||0)-Date.parse(a.d||0));bar();draw()});
 

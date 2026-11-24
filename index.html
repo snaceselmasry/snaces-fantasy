@@ -43,7 +43,7 @@ fetch("data/home.json").then(r=>{if(!r.ok)throw 0;return r.json()}).then(h=>{
 }).catch(()=>{$("leaders").innerHTML="";$("nextList").innerHTML='<div class="empty">البيانات مش متاحة حاليًا.</div>'});
 const KL={rumor:"شائعة",official:"رسمي",news:"خبر"};
 fetch("data/transfers-news.json").then(r=>{if(!r.ok)throw 0;return r.json()}).then(n=>{
- $("newsList").innerHTML=(n.items||[]).slice(0,6).map(i=>`<a class="row" href="${esc(i.u)}" target="_blank" rel="noopener noreferrer"><span>${esc(i.t)}</span><span class="muted"><span class="lg">${KL[i.k]||"خبر"}</span> ${esc(i.s)}</span></a>`).join("")||'<div class="empty">لا توجد أخبار حاليًا.</div>';
+ $("newsList").innerHTML=(n.items||[]).slice(0,6).map(i=>`<a class="row" href="${esc(i.u)}" target="_blank" rel="noopener noreferrer"><span>${esc(i.ar||i.t)}</span><span class="muted"><span class="lg">${KL[i.k]||"خبر"}</span> ${esc(i.s)}</span></a>`).join("")||'<div class="empty">لا توجد أخبار حاليًا.</div>';
 }).catch(()=>{$("newsList").innerHTML='<div class="empty">لا توجد أخبار حاليًا.</div>'});
 fetch("data/meta.json").then(r=>r.json()).then(m=>{$("upd").textContent="آخر تحديث: "+new Date(m.updated).toLocaleString("ar-EG")}).catch(()=>{});
 try{const s=JSON.parse(localStorage.getItem("snaces_streak")||"null");if(s&&s.count>0){const y=d=>{const x=new Date(d+"T12:00:00");x.setDate(x.getDate()-1);return x.toLocaleDateString("en-CA")},t=new Date().toLocaleDateString("en-CA");if(s.last===t||s.last===y(t))$("streakTxt").textContent="سلسلتك الحالية: "+s.count+" يوم 🔥 كمّل النهارده!"}}catch(e){}
