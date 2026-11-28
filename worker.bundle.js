@@ -1526,7 +1526,7 @@ var CSP = [
   "img-src 'self' data: blob: https:",
   "media-src 'self' https:",
   "font-src 'self' data: https://fonts.gstatic.com",
-  "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
+  "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://accounts.google.com",
   "script-src 'self' 'unsafe-inline' https://accounts.google.com https://apis.google.com https://connect.facebook.net https://www.gstatic.com https://static.cloudflareinsights.com",
   "connect-src 'self' https:",
   "frame-src https://accounts.google.com https://connect.facebook.net"
