@@ -18,6 +18,8 @@ await mkdir(DIST, { recursive: true });
 
 for (const f of FILES) await cp(join(ROOT, f), join(DIST, f));
 for (const d of DIRS) await cp(join(ROOT, d), join(DIST, d), { recursive: true });
+/* أصول المتجر (assets/store) مش جزء من الموقع — متتنشرش */
+await rm(join(DIST, 'assets', 'store'), { recursive: true, force: true });
 
 /* النطاق: بنستبدل النطاق الافتراضي في الملفات اللي فيها روابط مطلقة */
 let lastmod = new Date().toISOString().slice(0, 10);

@@ -32,12 +32,18 @@ const walk = (dir, out = []) => {
   return out;
 };
 
+/* أصول المتجر مش جزء من الموقع المنشور */
+const SKIP = p => String(p).replace(/\\/g, '/').startsWith('assets/store/');
+
 const expected = new Set(FILES);
 for (const d of DIRS) {
   if (!statSync(d).isDirectory()) { fail.push(`مجلد المصدر مفقود: ${d}`); continue; }
-  for (const p of walk(d)) expected.add(relative('.', p).replace(/\\/g, '/'));
+  for (const p of walk(d)) {
+    const rel = relative('.', p).replace(/\\/g, '/');
+    if (!SKIP(rel)) expected.add(rel);
+  }
 }
-const actual = new Set(walk('dist').map(p => relative('dist', p).replace(/\\/g, '/')));
+const actual = new Set(walk('dist').map(p => relative('dist', p).replace(/\\/g, '/')).filter(p => !SKIP(p)));
 
 /* الملفات اللي build-dist بيعدّل فيها النطاق/تاريخ الخريطة بطريقة مقصودة */
 const REWRITTEN = new Set(['index.html', 'robots.txt', 'sitemap.xml']);
