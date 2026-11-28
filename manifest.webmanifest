@@ -35,6 +35,37 @@
       "purpose": "maskable"
     }
   ],
+  "screenshots": [
+    {
+      "src": "assets/screenshots/01-home.jpg",
+      "sizes": "540x960",
+      "type": "image/jpeg",
+      "form_factor": "narrow",
+      "label": "الرئيسية — مباريات مباشرة وتحدي اليوم"
+    },
+    {
+      "src": "assets/screenshots/02-matches.jpg",
+      "sizes": "540x960",
+      "type": "image/jpeg",
+      "form_factor": "narrow",
+      "label": "المباريات — نتائج ومواعيد كل البطولات"
+    },
+    {
+      "src": "assets/screenshots/03-table.jpg",
+      "sizes": "540x960",
+      "type": "image/jpeg",
+      "form_factor": "narrow",
+      "label": "ترتيب البطولات — الجدول والهدافين"
+    },
+    {
+      "src": "assets/screenshots/04-match.jpg",
+      "sizes": "540x960",
+      "type": "image/jpeg",
+      "form_factor": "narrow",
+      "label": "تحليل المباراة — مقارنة الفريقين"
+    }
+  ],
+  "prefer_related_applications": false,
   "id": "./",
   "display_override": [
     "standalone",
