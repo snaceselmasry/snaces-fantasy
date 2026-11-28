@@ -3,12 +3,14 @@
      SITE_ORIGIN=https://example.com bun tools/build-dist.mjs
 */
 import { cp, mkdir, rm, readdir, stat, readFile, writeFile } from 'node:fs/promises';
+import { existsSync } from 'node:fs';
 import { join } from 'node:path';
 
 const ROOT = process.cwd();
 const DIST = join(ROOT, 'dist');
 const FILES = ['index.html', 'manifest.webmanifest', 'sw.js', 'robots.txt', 'sitemap.xml'];
-const DIRS = ['css', 'js', 'data', 'assets'];
+/* .well-known اختياري: بيحتوي assetlinks.json لتحقق تطبيق أندرويد (TWA) */
+const DIRS = ['css', 'js', 'data', 'assets', '.well-known'];
 const FALLBACK_ORIGIN = 'https://snaces-football-uiulk2.freebuff.site';
 const ORIGIN = String(process.env.SITE_ORIGIN || FALLBACK_ORIGIN).replace(/\/+$/, '');
 if (!/^https?:\/\/[^\s]+$/.test(ORIGIN)) throw new Error('SITE_ORIGIN غير صالح: ' + ORIGIN);
@@ -17,7 +19,10 @@ await rm(DIST, { recursive: true, force: true });
 await mkdir(DIST, { recursive: true });
 
 for (const f of FILES) await cp(join(ROOT, f), join(DIST, f));
-for (const d of DIRS) await cp(join(ROOT, d), join(DIST, d), { recursive: true });
+for (const d of DIRS) {
+  if (!existsSync(join(ROOT, d))) continue;
+  await cp(join(ROOT, d), join(DIST, d), { recursive: true });
+}
 /* أصول المتجر (assets/store) مش جزء من الموقع — متتنشرش */
 await rm(join(DIST, 'assets', 'store'), { recursive: true, force: true });
 

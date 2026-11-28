@@ -3,7 +3,7 @@
    2) كل ملف في dist لازم يطابق نظيره في المصدر
    3) ممنوع أي ملفات أسرار/مؤقتة داخل dist
 */
-import { readFileSync, readdirSync, statSync, rmSync, mkdirSync } from 'node:fs';
+import { readFileSync, readdirSync, statSync, rmSync, mkdirSync, existsSync } from 'node:fs';
 import { spawnSync } from 'node:child_process';
 import { join, relative } from 'node:path';
 
@@ -23,6 +23,8 @@ rmSync(tmp, { force: true });
 
 const FILES = ['index.html', 'manifest.webmanifest', 'sw.js', 'robots.txt', 'sitemap.xml'];
 const DIRS = ['css', 'js', 'data', 'assets'];
+/* .well-known اختياري (assetlinks.json للتطبيق الأندرويد) */
+if (existsSync('.well-known')) DIRS.push('.well-known');
 
 const walk = (dir, out = []) => {
   for (const e of readdirSync(dir, { withFileTypes: true })) {
