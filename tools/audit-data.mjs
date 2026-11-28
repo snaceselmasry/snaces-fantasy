@@ -66,6 +66,9 @@ for (const { file, d } of leagues) {
   const s = Array.isArray(d.standings) ? d.standings : [];
   const m = Array.isArray(d.matches) ? d.matches : [];
   const code = d.code || file.replace('.json', '');
+  /* نوع البطولة: كأس (مفيش جدول) / مجموعات (جداول متعددة) / دوري (جدول واحد).
+     بعض الملفات القديمة مفيهاش kind فبنستنتجه من الجدول. */
+  const kind = d.kind || (s.length && (s.some(r => r.gn > 0) || new Set(s.map(r => r.group)).size > 1) ? 'group' : 'league');
   teamRows += s.length; matchRows += m.length;
   if (!s.length && !m.length) { err(code, 'الملف فاضي (لا جدول ولا مباريات)'); continue; }
 
@@ -94,6 +97,24 @@ for (const { file, d } of leagues) {
   }
 
   /* ترتيب المراكز داخل كل مجموعة */
+  /* نقاط فريقين في المواجهات المباشرة من المباريات المحفوظة (لما تكون متاحة) */
+  const h2hPoints = (above, below) => {
+    const na = String(above.team?.name || '').trim().toLowerCase();
+    const nb = String(below.team?.name || '').trim().toLowerCase();
+    let pa = 0, pb = 0, n = 0;
+    for (const x of m) {
+      if (x.status !== 'FINISHED' || x.hg == null || x.ag == null) continue;
+      const h = String(x.home?.name || '').trim().toLowerCase();
+      const w = String(x.away?.name || '').trim().toLowerCase();
+      let ha = null, hb = null;
+      if (h === na && w === nb) { ha = x.hg; hb = x.ag; }
+      else if (h === nb && w === na) { ha = x.ag; hb = x.hg; }
+      else continue;
+      n++;
+      if (ha > hb) pa += 3; else if (ha < hb) pb += 3; else { pa++; pb++; }
+    }
+    return { n, pa, pb };
+  };
   const byGroup = new Map();
   for (const r of s) {
     const g = r.group || '-';
@@ -110,7 +131,15 @@ for (const { file, d } of leagues) {
       const prev = rows[i - 1];
       if (prev && Number.isFinite(prev.pts) && Number.isFinite(r.pts)) {
         if (r.pts > prev.pts) err(code, `ترتيب مقلوب في ${g}: ${r.team?.name} (${r.pts}) بعد ${prev.team?.name} (${prev.pts})`);
-        else if (r.pts === prev.pts && r.gd > prev.gd) wrn(code, `تعادل نقاط بفارق غير مرتّب في ${g}: ${r.team?.name}`);
+        else if (r.pts === prev.pts && r.gd > prev.gd) {
+          /* التعادل بيتحل بقواعد البطولة: عدد الانتصارات أو المواجهات المباشرة قبل الفارق.
+             بنحذّر بس لو مفيش أي قاعدة معروفة بتبرّر الترتيب. */
+          const winsFirst = Number.isFinite(r.w) && Number.isFinite(prev.w) && r.w < prev.w;
+          const h = h2hPoints(prev, r);
+          /* مفيش مباراة محفوظة بينهم = مفيش دليل على خطأ (الترتيب من المصدر) */
+          const provable = h.n > 0 && h.pa < h.pb;
+          if (!winsFirst && provable) wrn(code, `تعادل نقاط بفارق غير مرتّب في ${g}: ${r.team?.name}`);
+        }
       }
     });
   }
@@ -123,7 +152,9 @@ for (const { file, d } of leagues) {
     /* المباريات المحفوظة ممكن تكون نافذة جزئية من الموسم، فالمقارنة هنا اتجاه واحد فقط:
        مجموع المباريات الملعوبة لازم يكون >= ضعف المباريات المنتهية المحفوظة. */
     const finished = m.filter(x => x.status === 'FINISHED').length;
-    if (finished && sum('p') < finished * 2 - 2) {
+    /* المقارنة دي منطقية للدوري بس (كل فريق بيلعب مع الكل). في المجموعات/الكؤوس
+       المباريات المحفوظة تشمل أدوار خروج المغلوب اللي مش في الجدول، فمش مقارنة عادلة. */
+    if (kind === 'league' && finished && sum('p') < finished * 2 - 2) {
       wrn(code, `جدول الترتيب ناقص: مجموع الملعوبة ${sum('p')} أقل من ${finished} مباراة منتهية محفوظة`);
     }
   }
@@ -143,7 +174,7 @@ for (const { file, d } of leagues) {
       const pk = [x.home.name, x.away.name].map(v => String(v).trim().toLowerCase()).sort().join('|') + '|' + (x.date || '').slice(0, 10);
       if (pairs.has(pk)) wrn(code, `مباراة مكررة (نفس الفريقين واليوم): ${x.home.name} × ${x.away.name}`);
       pairs.add(pk);
-      if (s.length) {
+      if (s.length && kind === 'league') {
         const inTable = nm => names.has(String(nm).trim().toLowerCase());
         if (!inTable(x.home.name) && !inTable(x.away.name)) ghosts++;
       }

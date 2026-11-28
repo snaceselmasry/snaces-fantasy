@@ -1,0 +1,43 @@
+name: إشعارات المباريات (Push)
+
+# بينادي /api/push/check كل 5 دقايق بمفتاح الـcron، فالإشعارات بتتبعت
+# حتى لو محدش فاتح التطبيق. المفتاح لازم يتضاف كسيكرت: PUSH_TRIGGER_KEY
+# (نفس القيمة اللي متخزنة في إعدادات الموقع على Sites).
+
+on:
+  schedule:
+    - cron: '*/5 * * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: push-check
+  cancel-in-progress: false
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - name: نداء فحص الإشعارات
+        env:
+          PUSH_TRIGGER_KEY: ${{ secrets.PUSH_TRIGGER_KEY }}
+          SITE: https://snaces-football-uiulk2.freebuff.site
+        run: |
+          if [ -z "$PUSH_TRIGGER_KEY" ]; then
+            echo "::error::السيكرت PUSH_TRIGGER_KEY مش مضاف — الإشعارات مش هتتبعت."
+            exit 1
+          fi
+          code=$(curl -sS -m 45 -o /tmp/push.json -w '%{http_code}' \
+            -X POST "$SITE/api/push/check" \
+            -H "x-push-key: $PUSH_TRIGGER_KEY" \
+            -H 'content-type: application/json' || echo 000)
+          echo "HTTP $code"
+          head -c 800 /tmp/push.json || true
+          echo
+          if [ "$code" != "200" ]; then
+            echo "::error::فحص الإشعارات فشل (HTTP $code)"
+            exit 1
+          fi

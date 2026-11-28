@@ -103,16 +103,31 @@ for (const c of COMPS) {
     /* ---------- الجدول ---------- */
     const standings = [];
     const groups = st.standings || [];
-    for (const s of groups) {
-      const rows = (s.rows || []).filter(r => {
+    /* صفوف كل الجداول مع بيانات الجدول اللي جت منه */
+    const raw = [];
+    groups.forEach((s, ti) => {
+      (s.rows || []).forEach(r => {
         const n = String((r.competitor || {}).name || "");
-        return !/^(winner|loser|tbd|to be|1st|2nd)\b/i.test(n);
+        if (/^(winner|loser|tbd|to be|1st|2nd)\b/i.test(n)) return;
+        raw.push({ r, s, ti });
       });
-      rows.forEach((r, i) => {
+    });
+    /* «صفوف أصفار» = فرق مش بتلعب في الدور الحالي (بتلزق في آخر الجدول وبتلخبط المراكز).
+       بنشيلها بس في البطولات اللي فيها مجموعات، ولو مركزها بعد آخر مركز حقيقي. */
+    const weight = r => (r.gamePlayed || 0) + (r.points || 0) + (r.for || 0) + (r.against || 0)
+      + (r.gamesWon || 0) + (r.gamesEven || 0) + (r.gamesLost || 0);
+    const hasGroups = raw.some(x => x.r.groupNum && x.r.groupNum > 0);
+    const lastReal = raw.reduce((mx, x) => (weight(x.r) > 0 && Number.isFinite(x.r.position) ? Math.max(mx, x.r.position) : mx), 0);
+    const kept = (hasGroups && lastReal > 0)
+      ? raw.filter(x => weight(x.r) > 0 || !Number.isFinite(x.r.position) || x.r.position <= lastReal)
+      : raw;
+    const tableCount = new Set(kept.map(x => x.ti)).size;
+    kept.forEach(({ r, s, ti }, i) => {
         const t = r.competitor || {};
         /* البطولات المجمّعة: المجموعة بتيجي جوه الصف نفسه */
         const gn = r.groupNum && r.groupNum > 0 ? r.groupNum : 0;
-        const group = gn ? "المجموعة " + gn : (groups.length > 1 ? (s.displayName || null) : null);
+        const group = gn ? "المجموعة " + gn
+          : (tableCount > 1 ? (s.displayName || "جدول " + (ti + 1)) : null);
         standings.push({
           pos: r.position || r.rank || i + 1,
           group,
@@ -129,8 +144,7 @@ for (const c of COMPS) {
           /* خصم النقاط: المصدر مش دايماً بيعلّمه، فبنحسبه */
           ded: (r.points ?? 0) < 3 * (r.gamesWon ?? 0) + (r.gamesEven ?? 0)
         });
-      });
-    }
+    });
     /* بنحافظ على ترتيب المصدر، بس الأدوار التأهيلية (بدون مجموعة) تيجي في الآخر */
     standings.sort((a, b) => (a.gn ? 0 : 1) - (b.gn ? 0 : 1));
 
@@ -167,7 +181,10 @@ for (const c of COMPS) {
       .sort((a, b) => new Date(b.date) - new Date(a.date)).slice(0, 40);
 
     const name = (groups[0] && groups[0].displayName) || c.nameAr;
-    const data = { code: c.code, name, nameAr: c.nameAr, standings, matches: [...upcoming, ...finished], scorers: [] };
+    /* نوع البطولة: كأس (مفيش جدول) / مجموعات (جداول متعددة) / دوري (جدول واحد) */
+    const kind = c.group === "cup" ? "cup"
+      : (standings.some(r => r.gn > 0) || new Set(standings.map(r => r.group)).size > 1 ? "group" : "league");
+    const data = { code: c.code, name, nameAr: c.nameAr, kind, standings, matches: [...upcoming, ...finished], scorers: [] };
     await writeFile(`data/${c.code}.json`, JSON.stringify(data));
     packs[c.code] = data;
 

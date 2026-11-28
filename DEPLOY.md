@@ -16,8 +16,14 @@
 "$FREEBUFF_BUN" build worker.js --target browser --format esm --outfile worker.bundle.js
 "$FREEBUFF_BUN" tools/build-dist.mjs
 ```
-- أي تعديل في `js/` أو `css/` أو `sw.js` → أعد بناء `dist` وارفع رقم الكاش في `sw.js` (الحالي **snaces-v58**).
+- أي تعديل في `js/` أو `css/` أو `sw.js` → أعد بناء `dist` وارفع رقم الكاش في `sw.js` (الحالي **snaces-v102**).
+  تعديل `data/` لوحده مش محتاج رفع الكاش: الملفات بتتجاب network-first في الـSW.
 - **تحديث البيانات تلقائيًا**: `.github/workflows/update-data.yml` بيشغّل `tools/update-*.mjs` كل 3 ساعات ويحفظ في `data/` (محتاج سيكرت `FOOTBALL_DATA_KEY`).
+  ⚠️ الـworkflow بيحدّث الريبو بس — النشر على Sites لسه يدوي من الـDesktop.
+- **إشعارات 24/7**: `.github/workflows/push-check.yml` بينادي `POST /api/push/check` كل 5 دقايق بهيدر `x-push-key` (سيكرت `PUSH_TRIGGER_KEY` لازم يتضاف في GitHub، نفس القيمة اللي على Sites).
+- **`update-squads.mjs`** بيعتمد على Wikidata، ولو المصدر رد 429 (rate limit) السكربت بيفشل من غير ما يكتب فوق `data/squads.json` القديم — أعد تشغيله بعدين.
+- ملفات البطولات فيها `kind`: `league` (جدول واحد) / `group` (مجموعات + خروج مغلوب) / `cup` (مفيش جدول). المدقق `audit-data.mjs` بيستخدمها عشان ميقارنش حاجة مش قابلة للمقارنة، وأي ملف قديم مفيهوش `kind` بيتستنتج من الجدول.
+- `update-leagues.mjs` بيشيل صفوف الفرق اللي لسه ما لعبتش (كل أرقامها أصفار) لو مركزها بعد آخر مركز حقيقي في بطولة فيها مجموعات — دي كانت بتلزق في آخر الجدول وتلخبط المراكز.
 - **النشر على Google Play**: الخطوات المبسّطة في `PLAY.md`.
 - صفحات داخل التطبيق: `#/privacy`، `#/terms`، `#/about`، وحذف البيانات السحابية من `#/account` عبر `POST /api/account/delete`.
 - مسارات `/api/*` و`/auth/*` مستثناة من كاش الـService Worker.
