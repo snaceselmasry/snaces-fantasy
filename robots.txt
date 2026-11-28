@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /auth/
+
+# صفحات الحساب والبيانات الخاصة بتتحدد بـnoindex من جوه التطبيق
+
+Sitemap: https://snaces-football-uiulk2.freebuff.site/sitemap.xml

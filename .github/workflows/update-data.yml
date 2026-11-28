@@ -1,0 +1,142 @@
+name: تحديث بيانات SNACES
+
+on:
+  schedule:
+    - cron: '15 */3 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: data-update
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      # ===== مصدر أساسي: الجداول والمباريات =====
+      # continue-on-error هنا مقصود: بنكمّل باقي المصادر، وبعدين بوابة التقرير
+      # هي اللي تفشّل الـjob لو المصدر الأساسي وقع — مفيش نجاح مضلّل.
+      - name: الجداول والمباريات (أساسي)
+        id: core
+        continue-on-error: true
+        run: bun tools/update-data.mjs
+        env:
+          FOOTBALL_DATA_KEY: ${{ secrets.FOOTBALL_DATA_KEY }}
+
+      # ===== مصادر اختيارية: فشلها ما يمنعش باقي التحديث =====
+      - name: الفانتازي وأسعار اللاعبين (اختياري)
+        id: fpl
+        continue-on-error: true
+        run: bun tools/update-fpl.mjs
+
+      - name: الأخبار (اختياري)
+        id: news
+        continue-on-error: true
+        run: bun tools/update-news.mjs
+
+      - name: البطولات وصفحات الرئيسية (اختياري)
+        id: leagues
+        continue-on-error: true
+        run: bun tools/update-leagues.mjs
+
+      - name: معلومات الأندية والبطولات (اختياري)
+        id: info
+        continue-on-error: true
+        run: bun tools/update-info.mjs
+
+      - name: قوائم اللاعبين (اختياري)
+        id: squads
+        continue-on-error: true
+        run: bun tools/update-squads.mjs
+
+      - name: فهرس البحث (اختياري)
+        id: search
+        continue-on-error: true
+        run: bun tools/build-search.mjs
+
+      # ===== بوابة الجودة: ممنوع commit لبيانات فاسدة =====
+      - name: تدقيق البيانات قبل النشر
+        id: audit
+        run: bun tools/audit-data.mjs --strict
+
+      - name: تقرير مصادر التحديث
+        if: always()
+        env:
+          CORE: ${{ steps.core.outcome }}
+          FPL: ${{ steps.fpl.outcome }}
+          NEWS: ${{ steps.news.outcome }}
+          LEAGUES: ${{ steps.leagues.outcome }}
+          INFO: ${{ steps.info.outcome }}
+          SQUADS: ${{ steps.squads.outcome }}
+          SEARCH: ${{ steps.search.outcome }}
+          AUDIT: ${{ steps.audit.outcome }}
+        run: |
+          {
+            echo "## تقرير تحديث بيانات SNACES"
+            echo ""
+            echo "| المصدر | الحالة |"
+            echo "|---|---|"
+            echo "| الجداول والمباريات (أساسي) | $CORE |"
+            echo "| الفانتازي | $FPL |"
+            echo "| الأخبار | $NEWS |"
+            echo "| البطولات/الرئيسية | $LEAGUES |"
+            echo "| معلومات الأندية | $INFO |"
+            echo "| قوائم اللاعبين | $SQUADS |"
+            echo "| فهرس البحث | $SEARCH |"
+            echo "| تدقيق البيانات | $AUDIT |"
+            echo ""
+            if [ -f .tmp/update-report.json ]; then
+              echo '### تفاصيل تحديث الجداول'
+              echo '```json'
+              cat .tmp/update-report.json
+              echo '```'
+            fi
+            if [ -f .tmp/data-audit.json ]; then
+              echo '### ملخص التدقيق'
+              echo '```json'
+              bun -e "const r=require('./.tmp/data-audit.json');console.log(JSON.stringify(r.totals))"
+              echo '```'
+            fi
+          } >> "$GITHUB_STEP_SUMMARY"
+
+          if [ "$CORE" != "success" ]; then
+            echo "::error::المصدر الأساسي (الجداول والمباريات) فشل — التحديث مش مكتمل ومش هنعمل commit."
+            exit 1
+          fi
+          if [ "$AUDIT" != "success" ]; then
+            echo "::error::تدقيق البيانات فشل — ممنوع نشر بيانات غير صالحة."
+            exit 1
+          fi
+
+      - name: رفع تقارير التحديث
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: data-update-report
+          path: |
+            .tmp/update-report.json
+            .tmp/data-audit.json
+          if-no-files-found: warn
+
+      - name: حفظ التغييرات
+        if: success()
+        run: |
+          git config user.name "snaces-bot"
+          git config user.email "bot@users.noreply.github.com"
+          git add data
+          if git diff --cached --quiet; then
+            echo "مفيش تغييرات في البيانات"
+          else
+            git commit -m "data: تحديث تلقائي $(date -u +%Y-%m-%dT%H:%MZ)"
+            git push
+          fi

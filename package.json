@@ -1,0 +1,19 @@
+{
+  "name": "snaces-football",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build:worker": "bun build worker.js --target browser --format esm --outfile worker.bundle.js",
+    "build:dist": "bun tools/build-dist.mjs",
+    "build": "bun run build:worker && bun run build:dist",
+    "release": "bun tools/release.mjs",
+    "verify": "bun tools/check-build.mjs",
+    "audit:data": "bun tools/audit-data.mjs",
+    "audit:data:strict": "bun tools/audit-data.mjs --strict",
+    "audit:data:live": "bun tools/audit-data.mjs --live"
+  },
+  "dependencies": {
+    "@block65/webcrypto-web-push": "^2.0.0",
+    "@freebuff/auth": "^0.1.0"
+  }
+}

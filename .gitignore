@@ -1,0 +1,37 @@
+# مخرجات البناء — بتتولد من المصدر
+dist/
+.build/
+worker.check.js
+.tmp/worker-check.js
+
+# ملفات مؤقتة وسجلات
+.tmp/
+*.log
+*.tmp
+nul
+snaces-phone.zip
+
+# نسخ احتياطية وملفات داخلية
+backups/
+.cloud-attachments/
+.freebuff/
+
+# تبعيات
+node_modules/
+
+# أسرار وبيانات اعتماد — عمرها ما تتدفع
+.env
+.env.*
+!.env.example
+.dev.vars
+*.pem
+*.key
+vapid-private.txt
+vapid-public.txt
+vapid-subject.txt
+
+# قواعد بيانات محلية / جلسات
+*.db
+*.sqlite
+*.sqlite3
+*.db-journal

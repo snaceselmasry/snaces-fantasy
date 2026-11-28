@@ -1,0 +1,78 @@
+{
+  "name": "SNACES FOOTBALL",
+  "short_name": "SNACES",
+  "description": "مباريات مباشرة ونتائج وترتيب البطولات العربية والأوروبية، أخبار وانتقالات، فانتازي، تحديات يومية، وغرف لعب مع الصحاب.",
+  "lang": "ar",
+  "dir": "rtl",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#07130f",
+  "theme_color": "#07130f",
+  "categories": [
+    "sports",
+    "news",
+    "games"
+  ],
+  "icons": [
+    {
+      "src": "assets/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "assets/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "assets/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "id": "./",
+  "display_override": [
+    "standalone",
+    "minimal-ui"
+  ],
+  "shortcuts": [
+    {
+      "name": "المفضلة",
+      "short_name": "المفضلة",
+      "url": "./#/favorites",
+      "icons": [
+        {
+          "src": "assets/icon-192.png",
+          "sizes": "192x192"
+        }
+      ]
+    },
+    {
+      "name": "التحديات",
+      "short_name": "التحديات",
+      "url": "./#/challenges",
+      "icons": [
+        {
+          "src": "assets/icon-192.png",
+          "sizes": "192x192"
+        }
+      ]
+    },
+    {
+      "name": "الفانتازي",
+      "short_name": "الفانتازي",
+      "url": "./#/fantasy",
+      "icons": [
+        {
+          "src": "assets/icon-192.png",
+          "sizes": "192x192"
+        }
+      ]
+    }
+  ]
+}

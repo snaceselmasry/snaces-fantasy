@@ -1,0 +1,22 @@
+{
+  "lockfileVersion": 2,
+  "configVersion": 1,
+  "workspaces": {
+    "": {
+      "name": "snaces-football",
+      "dependencies": {
+        "@block65/webcrypto-web-push": "^2.0.0",
+        "@freebuff/auth": "^0.1.0",
+      },
+    },
+  },
+  "packages": {
+    "@block65/webcrypto-web-push": ["@block65/webcrypto-web-push@2.0.0", "", { "dependencies": { "uint8array-extras": "^1.5.0" } }, "sha512-BMrw8hABq5krABWPy3zFJvBC73HeRkyT/GTZ2AD7wqzo9hd9vO56MstBqjGMIxIw3e4lbRUbYxgihCcfhoTI2g=="],
+
+    "@freebuff/auth": ["@freebuff/auth@0.1.0", "", { "dependencies": { "jose": "^6.0.11" }, "peerDependencies": { "next": ">=15", "react": ">=18" }, "optionalPeers": ["next", "react"], "bin": { "freebuff-auth": "dist/bin.js" } }, "sha512-8nbadSqG68KTu04yF/R0RSrdK8dL6396DV+IiLz+3fUbQ2UAw6IMrANlkP7sEjZrLeDtzgN76ty5vZcWPkCEYw=="],
+
+    "jose": ["jose@6.2.18", "", {}, "sha512-doV4thUwgkrycJH4yLeqwTGIIZphHl+pk7CPReuMIhYhncmgzdko85MaCG4YQFTxqMFr1/oEH32tZuKKovcDEg=="],
+
+    "uint8array-extras": ["uint8array-extras@1.6.0", "", {}, "sha512-8iAasVS4wUx0gPLjH8Xtz2PeDzTSiy8QiLGu2DT3X5GU+egFEQhpnbtkehbAwjvDcxIERmCYcysiODFmE3Ud0Q=="],
+  }
+}
